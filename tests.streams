@@ -1,0 +1,3905 @@
+#Stream naming convention:
+# * the '+' signals concurrent drifts
+# * the '_' signals sequential drifts
+# * StaticIm[N]: stream starts with the N% minority share
+# * Split[N]: drift splits minority class into N clusters 
+# * Move[N]: drift changes the positions of N clusters in attribute space
+# * Im[N]: drift changes imbalance ratio to N% minority share
+# * Borderline[N]: drift increases borderline examples to N%
+# * Rare[N]: drift increases rare examples to N%
+
+ 
+# 1
+$(STRM_DIR)/StaticIm50.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	\
+	'"
+
+# 2
+$(STRM_DIR)/Im40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.800000\
+	'"
+
+# 3
+$(STRM_DIR)/Im30.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.600000\
+	'"
+
+# 4
+$(STRM_DIR)/Im20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.400000\
+	'"
+
+# 5
+$(STRM_DIR)/Im10.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000\
+	'"
+
+# 6
+$(STRM_DIR)/Im5.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000\
+	'"
+
+# 7
+$(STRM_DIR)/Im3.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.060000\
+	'"
+
+# 8
+$(STRM_DIR)/Im2.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.040000\
+	'"
+
+# 9
+$(STRM_DIR)/Im1.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000\
+	'"
+
+# 10
+$(STRM_DIR)/StaticIm40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.400000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	\
+	'"
+
+# 11
+$(STRM_DIR)/StaticIm40_Im30.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.400000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.750000\
+	'"
+
+# 12
+$(STRM_DIR)/StaticIm40_Im20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.400000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.500000\
+	'"
+
+# 13
+$(STRM_DIR)/StaticIm40_Im10.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.400000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.250000\
+	'"
+
+# 14
+$(STRM_DIR)/StaticIm40_Im5.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.400000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.125000\
+	'"
+
+# 15
+$(STRM_DIR)/StaticIm40_Im3.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.400000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.075000\
+	'"
+
+# 16
+$(STRM_DIR)/StaticIm40_Im2.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.400000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.050000\
+	'"
+
+# 17
+$(STRM_DIR)/StaticIm40_Im1.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.400000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.025000\
+	'"
+
+# 18
+$(STRM_DIR)/StaticIm30.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.300000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	\
+	'"
+
+# 19
+$(STRM_DIR)/StaticIm30_Im20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.300000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.666667\
+	'"
+
+# 20
+$(STRM_DIR)/StaticIm30_Im10.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.300000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.333333\
+	'"
+
+# 21
+$(STRM_DIR)/StaticIm30_Im5.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.300000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.166667\
+	'"
+
+# 22
+$(STRM_DIR)/StaticIm30_Im3.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.300000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000\
+	'"
+
+# 23
+$(STRM_DIR)/StaticIm30_Im2.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.300000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.066667\
+	'"
+
+# 24
+$(STRM_DIR)/StaticIm30_Im1.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.300000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.033333\
+	'"
+
+# 25
+$(STRM_DIR)/StaticIm20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.200000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	\
+	'"
+
+# 26
+$(STRM_DIR)/StaticIm20_Im10.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.200000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.500000\
+	'"
+
+# 27
+$(STRM_DIR)/StaticIm20_Im5.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.200000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.250000\
+	'"
+
+# 28
+$(STRM_DIR)/StaticIm20_Im3.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.200000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.150000\
+	'"
+
+# 29
+$(STRM_DIR)/StaticIm20_Im2.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.200000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000\
+	'"
+
+# 30
+$(STRM_DIR)/StaticIm20_Im1.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.200000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.050000\
+	'"
+
+# 31
+$(STRM_DIR)/StaticIm10.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	\
+	'"
+
+# 32
+$(STRM_DIR)/StaticIm10_Im5.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.500000\
+	'"
+
+# 33
+$(STRM_DIR)/StaticIm10_Im3.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.300000\
+	'"
+
+# 34
+$(STRM_DIR)/StaticIm10_Im2.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000\
+	'"
+
+# 35
+$(STRM_DIR)/StaticIm10_Im1.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000\
+	'"
+
+# 36
+$(STRM_DIR)/StaticIm5.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.050000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	\
+	'"
+
+# 37
+$(STRM_DIR)/StaticIm5_Im3.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.050000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.600000\
+	'"
+
+# 38
+$(STRM_DIR)/StaticIm5_Im2.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.050000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.400000\
+	'"
+
+# 39
+$(STRM_DIR)/StaticIm5_Im1.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.050000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000\
+	'"
+
+# 40
+$(STRM_DIR)/StaticIm3.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.030000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	\
+	'"
+
+# 41
+$(STRM_DIR)/StaticIm3_Im2.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.030000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.666667\
+	'"
+
+# 42
+$(STRM_DIR)/StaticIm3_Im1.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.030000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.333333\
+	'"
+
+# 43
+$(STRM_DIR)/StaticIm2.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.020000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	\
+	'"
+
+# 44
+$(STRM_DIR)/StaticIm2_Im1.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.020000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.500000\
+	'"
+
+# 45
+$(STRM_DIR)/StaticIm1.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	\
+	'"
+
+# 46
+$(STRM_DIR)/StaticIm40_Im90.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.400000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=2.250000\
+	'"
+
+# 47
+$(STRM_DIR)/StaticIm40_Im80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.400000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=2.000000\
+	'"
+
+# 48
+$(STRM_DIR)/StaticIm40_Im60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.400000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=1.500000\
+	'"
+
+# 49
+$(STRM_DIR)/StaticIm40_Im70.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.400000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=1.750000\
+	'"
+
+# 50
+$(STRM_DIR)/StaticIm30_Im90.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.300000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=3.000000\
+	'"
+
+# 51
+$(STRM_DIR)/StaticIm30_Im80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.300000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=2.666667\
+	'"
+
+# 52
+$(STRM_DIR)/StaticIm30_Im60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.300000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=2.000000\
+	'"
+
+# 53
+$(STRM_DIR)/StaticIm30_Im70.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.300000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=2.333333\
+	'"
+
+# 54
+$(STRM_DIR)/StaticIm20_Im90.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.200000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=4.500000\
+	'"
+
+# 55
+$(STRM_DIR)/StaticIm20_Im80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.200000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=4.000000\
+	'"
+
+# 56
+$(STRM_DIR)/StaticIm20_Im60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.200000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=3.000000\
+	'"
+
+# 57
+$(STRM_DIR)/StaticIm20_Im70.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.200000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=3.500000\
+	'"
+
+# 58
+$(STRM_DIR)/StaticIm10_Im90.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=9.000000\
+	'"
+
+# 59
+$(STRM_DIR)/StaticIm10_Im80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=8.000000\
+	'"
+
+# 60
+$(STRM_DIR)/StaticIm10_Im60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=6.000000\
+	'"
+
+# 61
+$(STRM_DIR)/StaticIm10_Im70.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=7.000000\
+	'"
+
+# 62
+$(STRM_DIR)/StaticIm5_Im90.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.050000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=18.000000\
+	'"
+
+# 63
+$(STRM_DIR)/StaticIm5_Im80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.050000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=16.000000\
+	'"
+
+# 64
+$(STRM_DIR)/StaticIm5_Im60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.050000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=12.000000\
+	'"
+
+# 65
+$(STRM_DIR)/StaticIm5_Im95.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.050000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=19.000000\
+	'"
+
+# 66
+$(STRM_DIR)/StaticIm5_Im70.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.050000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=14.000000\
+	'"
+
+# 67
+$(STRM_DIR)/StaticIm3_Im90.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.030000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=30.000000\
+	'"
+
+# 68
+$(STRM_DIR)/StaticIm3_Im80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.030000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=26.666667\
+	'"
+
+# 69
+$(STRM_DIR)/StaticIm3_Im60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.030000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=20.000000\
+	'"
+
+# 70
+$(STRM_DIR)/StaticIm3_Im97.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.030000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=32.333333\
+	'"
+
+# 71
+$(STRM_DIR)/StaticIm3_Im70.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.030000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=23.333333\
+	'"
+
+# 72
+$(STRM_DIR)/StaticIm2_Im90.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.020000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=45.000000\
+	'"
+
+# 73
+$(STRM_DIR)/StaticIm2_Im80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.020000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=40.000000\
+	'"
+
+# 74
+$(STRM_DIR)/StaticIm2_Im60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.020000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=30.000000\
+	'"
+
+# 75
+$(STRM_DIR)/StaticIm2_Im98.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.020000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=49.000000\
+	'"
+
+# 76
+$(STRM_DIR)/StaticIm2_Im70.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.020000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=35.000000\
+	'"
+
+# 77
+$(STRM_DIR)/StaticIm1_Im90.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=90.000000\
+	'"
+
+# 78
+$(STRM_DIR)/StaticIm1_Im80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=80.000000\
+	'"
+
+# 79
+$(STRM_DIR)/StaticIm1_Im60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=60.000000\
+	'"
+
+# 80
+$(STRM_DIR)/StaticIm1_Im99.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=99.000000\
+	'"
+
+# 81
+$(STRM_DIR)/StaticIm1_Im70.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 1 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=70.000000\
+	'"
+
+# 82
+$(STRM_DIR)/Split3.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 3 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 83
+$(STRM_DIR)/Split3-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 3 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 84
+$(STRM_DIR)/Move3.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 3 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 85
+$(STRM_DIR)/Move3-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 3 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 86
+$(STRM_DIR)/Join3.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 3 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/incremental,start=70000,end=100000,value-start=1,value-end=0\
+	'"
+
+# 87
+$(STRM_DIR)/Join3-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 3 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/incremental,start=2,end=4,value-start=1,value-end=0\
+	'"
+
+# 88
+$(STRM_DIR)/Split5.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 89
+$(STRM_DIR)/Split5-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 90
+$(STRM_DIR)/Move5.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 91
+$(STRM_DIR)/Move5-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 92
+$(STRM_DIR)/Join5.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/incremental,start=70000,end=100000,value-start=1,value-end=0\
+	'"
+
+# 93
+$(STRM_DIR)/Join5-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/incremental,start=2,end=4,value-start=1,value-end=0\
+	'"
+
+# 94
+$(STRM_DIR)/Split7.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 7 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 95
+$(STRM_DIR)/Split7-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 7 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 96
+$(STRM_DIR)/Move7.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 7 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 97
+$(STRM_DIR)/Move7-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 7 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 98
+$(STRM_DIR)/Join7.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 7 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/incremental,start=70000,end=100000,value-start=1,value-end=0\
+	'"
+
+# 99
+$(STRM_DIR)/Join7-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 7 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/incremental,start=2,end=4,value-start=1,value-end=0\
+	'"
+
+# 100
+$(STRM_DIR)/StaticIm10_Split3.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 3 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 101
+$(STRM_DIR)/StaticIm10_Split3-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 3 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 102
+$(STRM_DIR)/StaticIm10_Move3.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 3 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 103
+$(STRM_DIR)/StaticIm10_Move3-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 3 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 104
+$(STRM_DIR)/StaticIm10_Join3.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 3 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/incremental,start=70000,end=100000,value-start=1,value-end=0\
+	'"
+
+# 105
+$(STRM_DIR)/StaticIm10_Join3-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 3 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/incremental,start=2,end=4,value-start=1,value-end=0\
+	'"
+
+# 106
+$(STRM_DIR)/StaticIm10_Split5.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 107
+$(STRM_DIR)/StaticIm10_Split5-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 108
+$(STRM_DIR)/StaticIm10_Move5.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 109
+$(STRM_DIR)/StaticIm10_Move5-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 110
+$(STRM_DIR)/StaticIm10_Join5.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/incremental,start=70000,end=100000,value-start=1,value-end=0\
+	'"
+
+# 111
+$(STRM_DIR)/StaticIm10_Join5-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/incremental,start=2,end=4,value-start=1,value-end=0\
+	'"
+
+# 112
+$(STRM_DIR)/StaticIm10_Split7.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 7 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 113
+$(STRM_DIR)/StaticIm10_Split7-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 7 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 114
+$(STRM_DIR)/StaticIm10_Move7.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 7 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 115
+$(STRM_DIR)/StaticIm10_Move7-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 7 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 116
+$(STRM_DIR)/StaticIm10_Join7.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 7 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/incremental,start=70000,end=100000,value-start=1,value-end=0\
+	'"
+
+# 117
+$(STRM_DIR)/StaticIm10_Join7-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 7 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/incremental,start=2,end=4,value-start=1,value-end=0\
+	'"
+
+# 118
+$(STRM_DIR)/StaticIm1_Split3.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 3 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 119
+$(STRM_DIR)/StaticIm1_Split3-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 3 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 120
+$(STRM_DIR)/StaticIm1_Move3.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 3 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 121
+$(STRM_DIR)/StaticIm1_Move3-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 3 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 122
+$(STRM_DIR)/StaticIm1_Join3.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 3 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/incremental,start=70000,end=100000,value-start=1,value-end=0\
+	'"
+
+# 123
+$(STRM_DIR)/StaticIm1_Join3-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 3 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/incremental,start=2,end=4,value-start=1,value-end=0\
+	'"
+
+# 124
+$(STRM_DIR)/StaticIm1_Split5.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 125
+$(STRM_DIR)/StaticIm1_Split5-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 126
+$(STRM_DIR)/StaticIm1_Move5.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 127
+$(STRM_DIR)/StaticIm1_Move5-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 128
+$(STRM_DIR)/StaticIm1_Join5.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/incremental,start=70000,end=100000,value-start=1,value-end=0\
+	'"
+
+# 129
+$(STRM_DIR)/StaticIm1_Join5-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/incremental,start=2,end=4,value-start=1,value-end=0\
+	'"
+
+# 130
+$(STRM_DIR)/StaticIm1_Split7.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 7 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 131
+$(STRM_DIR)/StaticIm1_Split7-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 7 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 132
+$(STRM_DIR)/StaticIm1_Move7.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 7 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 133
+$(STRM_DIR)/StaticIm1_Move7-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 7 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 134
+$(STRM_DIR)/StaticIm1_Join7.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 7 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/incremental,start=70000,end=100000,value-start=1,value-end=0\
+	'"
+
+# 135
+$(STRM_DIR)/StaticIm1_Join7-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 7 -m 0.010000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/incremental,start=2,end=4,value-start=1,value-end=0\
+	'"
+
+# 136
+$(STRM_DIR)/Rare80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 137
+$(STRM_DIR)/Rare80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 138
+$(STRM_DIR)/Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 139
+$(STRM_DIR)/Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 140
+$(STRM_DIR)/Borderline100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 141
+$(STRM_DIR)/Borderline100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 142
+$(STRM_DIR)/Borderline40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 143
+$(STRM_DIR)/Borderline40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 144
+$(STRM_DIR)/Rare60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 145
+$(STRM_DIR)/Rare60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 146
+$(STRM_DIR)/Borderline20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 147
+$(STRM_DIR)/Borderline20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 148
+$(STRM_DIR)/Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 149
+$(STRM_DIR)/Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 150
+$(STRM_DIR)/Borderline80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 151
+$(STRM_DIR)/Borderline80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 152
+$(STRM_DIR)/Borderline60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 153
+$(STRM_DIR)/Borderline60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 154
+$(STRM_DIR)/Borderline40+Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000\
+	'"
+
+# 155
+$(STRM_DIR)/Borderline40+Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000\
+	'"
+
+# 156
+$(STRM_DIR)/Borderline20+Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000\
+	'"
+
+# 157
+$(STRM_DIR)/Borderline20+Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000\
+	'"
+
+# 158
+$(STRM_DIR)/Rare100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 159
+$(STRM_DIR)/Rare100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 160
+$(STRM_DIR)/Im10.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000\
+	'"
+
+# 161
+$(STRM_DIR)/Im10-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000\
+	'"
+
+# 162
+$(STRM_DIR)/Im10+Rare80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 163
+$(STRM_DIR)/Im10+Rare80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 164
+$(STRM_DIR)/Im10+Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 165
+$(STRM_DIR)/Im10+Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 166
+$(STRM_DIR)/Im10+Borderline100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 167
+$(STRM_DIR)/Im10+Borderline100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 168
+$(STRM_DIR)/Im10+Borderline40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 169
+$(STRM_DIR)/Im10+Borderline40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 170
+$(STRM_DIR)/Im10+Rare60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 171
+$(STRM_DIR)/Im10+Rare60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 172
+$(STRM_DIR)/Im10+Borderline20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 173
+$(STRM_DIR)/Im10+Borderline20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 174
+$(STRM_DIR)/Im10+Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 175
+$(STRM_DIR)/Im10+Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 176
+$(STRM_DIR)/Im10+Borderline80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 177
+$(STRM_DIR)/Im10+Borderline80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 178
+$(STRM_DIR)/Im10+Borderline60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 179
+$(STRM_DIR)/Im10+Borderline60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 180
+$(STRM_DIR)/Im10+Borderline40+Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000\
+	'"
+
+# 181
+$(STRM_DIR)/Im10+Borderline40+Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000\
+	'"
+
+# 182
+$(STRM_DIR)/Im10+Borderline20+Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000\
+	'"
+
+# 183
+$(STRM_DIR)/Im10+Borderline20+Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000\
+	'"
+
+# 184
+$(STRM_DIR)/Im10+Rare100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 185
+$(STRM_DIR)/Im10+Rare100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 186
+$(STRM_DIR)/Im1.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000\
+	'"
+
+# 187
+$(STRM_DIR)/Im1-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000\
+	'"
+
+# 188
+$(STRM_DIR)/Im1+Rare80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 189
+$(STRM_DIR)/Im1+Rare80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 190
+$(STRM_DIR)/Im1+Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 191
+$(STRM_DIR)/Im1+Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 192
+$(STRM_DIR)/Im1+Borderline100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 193
+$(STRM_DIR)/Im1+Borderline100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 194
+$(STRM_DIR)/Im1+Borderline40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 195
+$(STRM_DIR)/Im1+Borderline40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 196
+$(STRM_DIR)/Im1+Rare60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 197
+$(STRM_DIR)/Im1+Rare60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 198
+$(STRM_DIR)/Im1+Borderline20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 199
+$(STRM_DIR)/Im1+Borderline20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 200
+$(STRM_DIR)/Im1+Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 201
+$(STRM_DIR)/Im1+Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 202
+$(STRM_DIR)/Im1+Borderline80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 203
+$(STRM_DIR)/Im1+Borderline80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 204
+$(STRM_DIR)/Im1+Borderline60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 205
+$(STRM_DIR)/Im1+Borderline60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 206
+$(STRM_DIR)/Im1+Borderline40+Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000\
+	'"
+
+# 207
+$(STRM_DIR)/Im1+Borderline40+Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000\
+	'"
+
+# 208
+$(STRM_DIR)/Im1+Borderline20+Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000\
+	'"
+
+# 209
+$(STRM_DIR)/Im1+Borderline20+Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000\
+	'"
+
+# 210
+$(STRM_DIR)/Im1+Rare100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 211
+$(STRM_DIR)/Im1+Rare100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 212
+$(STRM_DIR)/Split5.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 213
+$(STRM_DIR)/Split5-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 214
+$(STRM_DIR)/Split5+Rare80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 215
+$(STRM_DIR)/Split5+Rare80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 216
+$(STRM_DIR)/Split5+Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 217
+$(STRM_DIR)/Split5+Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 218
+$(STRM_DIR)/Split5+Borderline100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 219
+$(STRM_DIR)/Split5+Borderline100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 220
+$(STRM_DIR)/Split5+Borderline40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 221
+$(STRM_DIR)/Split5+Borderline40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 222
+$(STRM_DIR)/Split5+Rare60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 223
+$(STRM_DIR)/Split5+Rare60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 224
+$(STRM_DIR)/Split5+Borderline20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 225
+$(STRM_DIR)/Split5+Borderline20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 226
+$(STRM_DIR)/Split5+Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 227
+$(STRM_DIR)/Split5+Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 228
+$(STRM_DIR)/Split5+Borderline80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 229
+$(STRM_DIR)/Split5+Borderline80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 230
+$(STRM_DIR)/Split5+Borderline60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 231
+$(STRM_DIR)/Split5+Borderline60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 232
+$(STRM_DIR)/Split5+Borderline40+Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000\
+	'"
+
+# 233
+$(STRM_DIR)/Split5+Borderline40+Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000\
+	'"
+
+# 234
+$(STRM_DIR)/Split5+Borderline20+Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000\
+	'"
+
+# 235
+$(STRM_DIR)/Split5+Borderline20+Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000\
+	'"
+
+# 236
+$(STRM_DIR)/Split5+Rare100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 237
+$(STRM_DIR)/Split5+Rare100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 238
+$(STRM_DIR)/Split5+Im10.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000\
+	'"
+
+# 239
+$(STRM_DIR)/Split5+Im10-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000\
+	'"
+
+# 240
+$(STRM_DIR)/Split5+Im10+Rare80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 241
+$(STRM_DIR)/Split5+Im10+Rare80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 242
+$(STRM_DIR)/Split5+Im10+Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 243
+$(STRM_DIR)/Split5+Im10+Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 244
+$(STRM_DIR)/Split5+Im10+Borderline100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 245
+$(STRM_DIR)/Split5+Im10+Borderline100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 246
+$(STRM_DIR)/Split5+Im10+Borderline40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 247
+$(STRM_DIR)/Split5+Im10+Borderline40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 248
+$(STRM_DIR)/Split5+Im10+Rare60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 249
+$(STRM_DIR)/Split5+Im10+Rare60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 250
+$(STRM_DIR)/Split5+Im10+Borderline20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 251
+$(STRM_DIR)/Split5+Im10+Borderline20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 252
+$(STRM_DIR)/Split5+Im10+Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 253
+$(STRM_DIR)/Split5+Im10+Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 254
+$(STRM_DIR)/Split5+Im10+Borderline80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 255
+$(STRM_DIR)/Split5+Im10+Borderline80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 256
+$(STRM_DIR)/Split5+Im10+Borderline60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 257
+$(STRM_DIR)/Split5+Im10+Borderline60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 258
+$(STRM_DIR)/Split5+Im10+Borderline40+Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000\
+	'"
+
+# 259
+$(STRM_DIR)/Split5+Im10+Borderline40+Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000\
+	'"
+
+# 260
+$(STRM_DIR)/Split5+Im10+Borderline20+Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000\
+	'"
+
+# 261
+$(STRM_DIR)/Split5+Im10+Borderline20+Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000\
+	'"
+
+# 262
+$(STRM_DIR)/Split5+Im10+Rare100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 263
+$(STRM_DIR)/Split5+Im10+Rare100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.200000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 264
+$(STRM_DIR)/Split5+Im1.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000\
+	'"
+
+# 265
+$(STRM_DIR)/Split5+Im1-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000\
+	'"
+
+# 266
+$(STRM_DIR)/Split5+Im1+Rare80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 267
+$(STRM_DIR)/Split5+Im1+Rare80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 268
+$(STRM_DIR)/Split5+Im1+Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 269
+$(STRM_DIR)/Split5+Im1+Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 270
+$(STRM_DIR)/Split5+Im1+Borderline100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 271
+$(STRM_DIR)/Split5+Im1+Borderline100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 272
+$(STRM_DIR)/Split5+Im1+Borderline40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 273
+$(STRM_DIR)/Split5+Im1+Borderline40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 274
+$(STRM_DIR)/Split5+Im1+Rare60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 275
+$(STRM_DIR)/Split5+Im1+Rare60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 276
+$(STRM_DIR)/Split5+Im1+Borderline20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 277
+$(STRM_DIR)/Split5+Im1+Borderline20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 278
+$(STRM_DIR)/Split5+Im1+Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 279
+$(STRM_DIR)/Split5+Im1+Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 280
+$(STRM_DIR)/Split5+Im1+Borderline80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 281
+$(STRM_DIR)/Split5+Im1+Borderline80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 282
+$(STRM_DIR)/Split5+Im1+Borderline60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 283
+$(STRM_DIR)/Split5+Im1+Borderline60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 284
+$(STRM_DIR)/Split5+Im1+Borderline40+Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000\
+	'"
+
+# 285
+$(STRM_DIR)/Split5+Im1+Borderline40+Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000\
+	'"
+
+# 286
+$(STRM_DIR)/Split5+Im1+Borderline20+Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000\
+	'"
+
+# 287
+$(STRM_DIR)/Split5+Im1+Borderline20+Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000\
+	'"
+
+# 288
+$(STRM_DIR)/Split5+Im1+Rare100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 289
+$(STRM_DIR)/Split5+Im1+Rare100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.500000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.020000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 290
+$(STRM_DIR)/StaticIm10.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0\
+	'"
+
+# 291
+$(STRM_DIR)/StaticIm10-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0\
+	'"
+
+# 292
+$(STRM_DIR)/StaticIm10_Rare80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 293
+$(STRM_DIR)/StaticIm10_Rare80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 294
+$(STRM_DIR)/StaticIm10_Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 295
+$(STRM_DIR)/StaticIm10_Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 296
+$(STRM_DIR)/StaticIm10_Borderline100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 297
+$(STRM_DIR)/StaticIm10_Borderline100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 298
+$(STRM_DIR)/StaticIm10_Borderline40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 299
+$(STRM_DIR)/StaticIm10_Borderline40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 300
+$(STRM_DIR)/StaticIm10_Rare60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 301
+$(STRM_DIR)/StaticIm10_Rare60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 302
+$(STRM_DIR)/StaticIm10_Borderline20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 303
+$(STRM_DIR)/StaticIm10_Borderline20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 304
+$(STRM_DIR)/StaticIm10_Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 305
+$(STRM_DIR)/StaticIm10_Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 306
+$(STRM_DIR)/StaticIm10_Borderline80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 307
+$(STRM_DIR)/StaticIm10_Borderline80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 308
+$(STRM_DIR)/StaticIm10_Borderline60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 309
+$(STRM_DIR)/StaticIm10_Borderline60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 310
+$(STRM_DIR)/StaticIm10_Borderline40+Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000\
+	'"
+
+# 311
+$(STRM_DIR)/StaticIm10_Borderline40+Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000\
+	'"
+
+# 312
+$(STRM_DIR)/StaticIm10_Borderline20+Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000\
+	'"
+
+# 313
+$(STRM_DIR)/StaticIm10_Borderline20+Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000\
+	'"
+
+# 314
+$(STRM_DIR)/StaticIm10_Rare100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 315
+$(STRM_DIR)/StaticIm10_Rare100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 316
+$(STRM_DIR)/StaticIm10_Im1.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000\
+	'"
+
+# 317
+$(STRM_DIR)/StaticIm10_Im1-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000\
+	'"
+
+# 318
+$(STRM_DIR)/StaticIm10_Im1+Rare80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 319
+$(STRM_DIR)/StaticIm10_Im1+Rare80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 320
+$(STRM_DIR)/StaticIm10_Im1+Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 321
+$(STRM_DIR)/StaticIm10_Im1+Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 322
+$(STRM_DIR)/StaticIm10_Im1+Borderline100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 323
+$(STRM_DIR)/StaticIm10_Im1+Borderline100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 324
+$(STRM_DIR)/StaticIm10_Im1+Borderline40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 325
+$(STRM_DIR)/StaticIm10_Im1+Borderline40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 326
+$(STRM_DIR)/StaticIm10_Im1+Rare60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 327
+$(STRM_DIR)/StaticIm10_Im1+Rare60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 328
+$(STRM_DIR)/StaticIm10_Im1+Borderline20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 329
+$(STRM_DIR)/StaticIm10_Im1+Borderline20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 330
+$(STRM_DIR)/StaticIm10_Im1+Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 331
+$(STRM_DIR)/StaticIm10_Im1+Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 332
+$(STRM_DIR)/StaticIm10_Im1+Borderline80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 333
+$(STRM_DIR)/StaticIm10_Im1+Borderline80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 334
+$(STRM_DIR)/StaticIm10_Im1+Borderline60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 335
+$(STRM_DIR)/StaticIm10_Im1+Borderline60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 336
+$(STRM_DIR)/StaticIm10_Im1+Borderline40+Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000\
+	'"
+
+# 337
+$(STRM_DIR)/StaticIm10_Im1+Borderline40+Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000\
+	'"
+
+# 338
+$(STRM_DIR)/StaticIm10_Im1+Borderline20+Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000\
+	'"
+
+# 339
+$(STRM_DIR)/StaticIm10_Im1+Borderline20+Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000\
+	'"
+
+# 340
+$(STRM_DIR)/StaticIm10_Im1+Rare100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 341
+$(STRM_DIR)/StaticIm10_Im1+Rare100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 342
+$(STRM_DIR)/StaticIm10_Split5.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1\
+	'"
+
+# 343
+$(STRM_DIR)/StaticIm10_Split5-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1\
+	'"
+
+# 344
+$(STRM_DIR)/StaticIm10_Split5+Rare80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 345
+$(STRM_DIR)/StaticIm10_Split5+Rare80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 346
+$(STRM_DIR)/StaticIm10_Split5+Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 347
+$(STRM_DIR)/StaticIm10_Split5+Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 348
+$(STRM_DIR)/StaticIm10_Split5+Borderline100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 349
+$(STRM_DIR)/StaticIm10_Split5+Borderline100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 350
+$(STRM_DIR)/StaticIm10_Split5+Borderline40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 351
+$(STRM_DIR)/StaticIm10_Split5+Borderline40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 352
+$(STRM_DIR)/StaticIm10_Split5+Rare60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 353
+$(STRM_DIR)/StaticIm10_Split5+Rare60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 354
+$(STRM_DIR)/StaticIm10_Split5+Borderline20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 355
+$(STRM_DIR)/StaticIm10_Split5+Borderline20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 356
+$(STRM_DIR)/StaticIm10_Split5+Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 357
+$(STRM_DIR)/StaticIm10_Split5+Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 358
+$(STRM_DIR)/StaticIm10_Split5+Borderline80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 359
+$(STRM_DIR)/StaticIm10_Split5+Borderline80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 360
+$(STRM_DIR)/StaticIm10_Split5+Borderline60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 361
+$(STRM_DIR)/StaticIm10_Split5+Borderline60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 362
+$(STRM_DIR)/StaticIm10_Split5+Borderline40+Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000\
+	'"
+
+# 363
+$(STRM_DIR)/StaticIm10_Split5+Borderline40+Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000\
+	'"
+
+# 364
+$(STRM_DIR)/StaticIm10_Split5+Borderline20+Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000\
+	'"
+
+# 365
+$(STRM_DIR)/StaticIm10_Split5+Borderline20+Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000\
+	'"
+
+# 366
+$(STRM_DIR)/StaticIm10_Split5+Rare100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 367
+$(STRM_DIR)/StaticIm10_Split5+Rare100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 368
+$(STRM_DIR)/StaticIm10_Split5+Im1.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000\
+	'"
+
+# 369
+$(STRM_DIR)/StaticIm10_Split5+Im1-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000\
+	'"
+
+# 370
+$(STRM_DIR)/StaticIm10_Split5+Im1+Rare80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 371
+$(STRM_DIR)/StaticIm10_Split5+Im1+Rare80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 372
+$(STRM_DIR)/StaticIm10_Split5+Im1+Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 373
+$(STRM_DIR)/StaticIm10_Split5+Im1+Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 374
+$(STRM_DIR)/StaticIm10_Split5+Im1+Borderline100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 375
+$(STRM_DIR)/StaticIm10_Split5+Im1+Borderline100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 376
+$(STRM_DIR)/StaticIm10_Split5+Im1+Borderline40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=666667.000000\
+	'"
+
+# 377
+$(STRM_DIR)/StaticIm10_Split5+Im1+Borderline40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=666667.000000\
+	'"
+
+# 378
+$(STRM_DIR)/StaticIm10_Split5+Im1+Rare60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 379
+$(STRM_DIR)/StaticIm10_Split5+Im1+Rare60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 380
+$(STRM_DIR)/StaticIm10_Split5+Im1+Borderline20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 381
+$(STRM_DIR)/StaticIm10_Split5+Im1+Borderline20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 382
+$(STRM_DIR)/StaticIm10_Split5+Im1+Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=250000.000000\
+	'"
+
+# 383
+$(STRM_DIR)/StaticIm10_Split5+Im1+Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=250000.000000\
+	'"
+
+# 384
+$(STRM_DIR)/StaticIm10_Split5+Im1+Borderline80.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=4000000.000000\
+	'"
+
+# 385
+$(STRM_DIR)/StaticIm10_Split5+Im1+Borderline80-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=4000000.000000\
+	'"
+
+# 386
+$(STRM_DIR)/StaticIm10_Split5+Im1+Borderline60.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=1500000.000000\
+	'"
+
+# 387
+$(STRM_DIR)/StaticIm10_Split5+Im1+Borderline60-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000000 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=1500000.000000\
+	'"
+
+# 388
+$(STRM_DIR)/StaticIm10_Split5+Im1+Borderline40+Rare40.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=2000000.000000\
+	'"
+
+# 389
+$(STRM_DIR)/StaticIm10_Split5+Im1+Borderline40+Rare40-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=2000000.000000\
+	'"
+
+# 390
+$(STRM_DIR)/StaticIm10_Split5+Im1+Borderline20+Rare20.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=333333.500000\
+	'"
+
+# 391
+$(STRM_DIR)/StaticIm10_Split5+Im1+Borderline20+Rare20-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000001 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	borderline-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=333333.500000\
+	'"
+
+# 392
+$(STRM_DIR)/StaticIm10_Split5+Im1+Rare100.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=70000,end=85000,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=85000,end=100000,value-start=0,value-end=1:\
+	minority-share/incremental,start=70000,end=100000,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=70000,end=100000,value-start=1,value-end=999998999971.000000\
+	'"
+
+# 393
+$(STRM_DIR)/StaticIm10_Split5+Im1+Rare100-post-drift.arff:
+	@make .stream FILE=$@ GENERATOR="generators.ImbalancedDriftGenerator \
+	-a $(ATTRIBUTES) -n 5 -m 0.100000 -s 1.000000 -b 0.000000 -p 0.000001 -o 0 -u \
+	-d '\
+	splitting-clusters/sudden,start=1,end=1,value-start=0,value-end=0:\
+	clusters-movement/incremental,start=2,end=3,value-start=0,value-end=1:\
+	clusters-movement/incremental,start=3,end=4,value-start=0,value-end=1:\
+	minority-share/incremental,start=2,end=4,value-start=1,value-end=0.100000:\
+	rare-ratio/incremental,start=2,end=4,value-start=1,value-end=999998999971.000000\
+	'"
+
