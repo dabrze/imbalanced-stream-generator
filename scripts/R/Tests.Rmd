@@ -1,0 +1,736 @@
+---
+title: "Statistical tests"
+output: 
+  html_document: 
+    number_sections: yes
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, results = "asis")
+knitr::knit_hooks$set(inline = function(x) {
+  prettyNum(x, big.mark=",")
+})
+
+library(stringr)
+library(knitr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(plotly)
+library(DT)
+library(ggthemes)
+library(PMCMR)
+library(scmamp)
+
+SAVE_EPS = T
+suffix <- "avg"
+metrics <- c("Accuracy", "AUC", "G-mean", "Kappa", "Recall")
+metrics <- c("G-mean", "Recall")
+total_results_df <- NULL
+```
+
+```{r functions, warning=F, message=F}
+prettyTable <- function(table_df, round_columns=numeric(), round_digits=3) {
+    DT::datatable(table_df, style="bootstrap", filter = "top", rownames = FALSE, extensions = "Buttons",
+                  options = list(dom = 'Bfrtip', buttons = c('copy', 'csv', 'excel', 'pdf', 'print'))) %>%
+    formatRound(round_columns, round_digits)
+}
+
+reportFriedman <- function(df, group_name, metric_name, metric_direction=1, make_plot = T){
+    averages = df %>%
+        select(-Experiment) %>%
+        data.matrix()
+    
+    if (metric_direction == 1) {
+      averages_r = -averages
+      averages_t = averages
+    } else {
+      averages_r = averages
+      averages_t = -averages
+    }
+    ranks <- t(apply(averages_r, 1, rank))
+    ranks <- ranks[,order(colMeans(ranks, na.rm=TRUE))]
+
+    cat(paste0("<hr><strong>Friedman rank sum test for ", metric_name, "</strong><br />"))
+    fTest <- friedman.test(averages_t)
+    testResult <- capture.output(print(fTest))
+    cat(testResult[5])
+    cat("\r\n")
+    mean_ranks <- t(colMeans(ranks, na.rm=TRUE))
+    print(kable(mean_ranks, digits = 2))
+    cat("\r\n")
+    
+    if (make_plot){
+        if (SAVE_EPS) {
+            setEPS()
+            postscript(paste0("images/", group_name, "_", metric_name, "_", "Friedman.eps"), width = 7, height = 3.4)
+            par(mar=c(0,0,0,0))
+            plot = tryCatch({
+                plotCD(results.matrix = averages, alpha = 0.05, cex = 1.1)
+                }, error = function(e) {
+                last_plot()
+            })
+            dev.off()
+        }
+      
+        png_name = paste0("images/", group_name, "_", metric_name, "_", "Friedman.png")
+        png(png_name, width = 600, height = 200)
+        par(mar=c(0,0,0,0))
+        plot = tryCatch({
+            plotCD(results.matrix = averages, alpha = 0.05, cex = 1.1)
+            }, error = function(e) {
+            last_plot()
+        })
+        dev.off()
+      
+        cat(paste0('<img src="', png_name,'">'))
+    }
+
+    cat('<hr>')
+    
+    cd_value = nemenyiTest(averages, alpha = 0.05)$statistic
+    result_ranks_df <- data.frame("Set"=group_name, "Metric"=metric_name, "OOB"=mean_ranks[1, "OOB"], "UOB"=mean_ranks[1, "UOB"], "OB"=mean_ranks[1, "OB"], "VFDT"=mean_ranks[1, "VFDT"], "ESOS.ELM"=mean_ranks[1, "ESOS_ELM"], "CD"=cd_value, stringsAsFactors = FALSE)
+  
+    result_ranks_df
+}
+```
+
+# Static imbalance no drift
+
+```{r}
+group_name <- "static"
+
+statics <- c('StaticIm1', 'StaticIm2', 'StaticIm3', 'StaticIm5', 'StaticIm10', 'StaticIm20', 'StaticIm30', 'StaticIm40', 'StaticIm50', 'Im1', 'Im2', 'Im3', 'Im5', 'Im10', 'Im20', 'Im30', 'Im40')
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
+    filter(Experiment %in% statics)
+  rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
+  total_results_df <- rbind(total_results_df, rank_df)
+}
+```
+
+```{r}
+statics <- c('StaticIm1', 'StaticIm2', 'StaticIm3', 'StaticIm5', 'StaticIm10', 'StaticIm20', 'StaticIm30', 'StaticIm40', 'StaticIm50')
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>%
+    filter(Experiment %in% statics) %>%
+    gather("Algorithm", "Metric", 2:6) %>%
+    mutate(Ratio = str_replace(Experiment, "Im", "")) %>%
+    mutate(Ratio = str_replace(Ratio, "Static", "")) %>%
+    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+  
+  df$Ratio <- as.integer(df$Ratio)
+  df$Algorithm <- ordered(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  
+  imbalance_plot <- ggplot(df, aes(x=Ratio, y=Metric, color=Algorithm, shape=Algorithm, linetype=Algorithm)) + 
+    geom_point(size=2) + 
+    geom_line() + 
+    theme_bw() + 
+    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
+    scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
+    labs(x="Minority class ratio [%]", y = metric, title="Static imbalance ratio") + 
+    ylim(0.0, 1.0) + 
+    theme(legend.position = "none", text = element_text(size=20))
+  ggsave(paste0("images/imbalance_plot_", metric, ".eps"), imbalance_plot)
+  ggsave(paste0("images/imbalance_plot_", metric, ".png"), imbalance_plot)
+}
+```
+
+# Imbalance ratio changes
+
+```{r}
+group_name <- "static_ratio_change"
+
+statics <- c('StaticIm10_Im1', 'StaticIm10_Im2', 'StaticIm10_Im3', 'StaticIm10_Im5', 'StaticIm10_Im60', 'StaticIm10_Im70', 'StaticIm10_Im80', 'StaticIm10_Im90', 'StaticIm1_Im60', 'StaticIm1_Im70', 'StaticIm1_Im80', 'StaticIm1_Im90', 'StaticIm1_Im99', 'StaticIm2_Im1', 'StaticIm2_Im60', 'StaticIm2_Im70', 'StaticIm2_Im80', 'StaticIm2_Im90', 'StaticIm2_Im98', 'StaticIm20_Im1', 'StaticIm20_Im10', 'StaticIm20_Im2', 'StaticIm20_Im3', 'StaticIm20_Im5', 'StaticIm20_Im60', 'StaticIm20_Im70', 'StaticIm20_Im80', 'StaticIm20_Im90', 'StaticIm3_Im1', 'StaticIm3_Im2', 'StaticIm3_Im60', 'StaticIm3_Im70', 'StaticIm3_Im80', 'StaticIm3_Im90', 'StaticIm3_Im97', 'StaticIm30_Im1', 'StaticIm30_Im10', 'StaticIm30_Im2', 'StaticIm30_Im20', 'StaticIm30_Im3', 'StaticIm30_Im5', 'StaticIm30_Im60', 'StaticIm30_Im70', 'StaticIm30_Im80', 'StaticIm30_Im90', 'StaticIm40_Im1', 'StaticIm40_Im10', 'StaticIm40_Im2', 'StaticIm40_Im20', 'StaticIm40_Im3', 'StaticIm40_Im30', 'StaticIm40_Im5', 'StaticIm40_Im60', 'StaticIm40_Im70', 'StaticIm40_Im80', 'StaticIm40_Im90', 'StaticIm5_Im1', 'StaticIm5_Im2', 'StaticIm5_Im3', 'StaticIm5_Im60', 'StaticIm5_Im70', 'StaticIm5_Im80', 'StaticIm5_Im90', 'StaticIm5_Im95'
+)
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
+    filter(Experiment %in% statics)
+  rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
+  total_results_df <- rbind(total_results_df, rank_df)
+}
+```
+
+```{r}
+increasing_dynamic <- c(
+'StaticIm1_Im60', 'StaticIm1_Im70', 'StaticIm1_Im80', 'StaticIm1_Im90', 
+'StaticIm2_Im60', 'StaticIm2_Im70', 'StaticIm2_Im80', 'StaticIm2_Im90', 
+'StaticIm3_Im60', 'StaticIm3_Im70', 'StaticIm3_Im80', 'StaticIm3_Im90',
+'StaticIm5_Im60', 'StaticIm5_Im70', 'StaticIm5_Im80', 'StaticIm5_Im90',
+'StaticIm10_Im60', 'StaticIm10_Im70', 'StaticIm10_Im80', 'StaticIm10_Im90',
+'StaticIm20_Im60', 'StaticIm20_Im70', 'StaticIm20_Im80', 'StaticIm20_Im90',
+'StaticIm30_Im60', 'StaticIm30_Im70', 'StaticIm30_Im80', 'StaticIm30_Im90',
+'StaticIm40_Im60', 'StaticIm40_Im70', 'StaticIm40_Im80', 'StaticIm40_Im90')
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>%
+    filter(Experiment %in% increasing_dynamic) %>%
+    gather("Algorithm", "Metric", 2:6) %>%
+    mutate(ImbalanceDrift = str_replace(Experiment, "Im", "")) %>%
+    mutate(ImbalanceDrift = str_replace(ImbalanceDrift, "Im", "")) %>%
+    mutate(ImbalanceDrift = str_replace(ImbalanceDrift, "Static", "")) %>%
+    mutate(ImbalanceDrift = str_replace(ImbalanceDrift, "_", "->")) %>%
+    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+  
+  increasing_dynamic_order <- str_replace(increasing_dynamic, "Im", "")
+  increasing_dynamic_order <- str_replace(increasing_dynamic_order, "Im", "")
+  increasing_dynamic_order <- str_replace(increasing_dynamic_order, "Static", "")
+  increasing_dynamic_order <- str_replace(increasing_dynamic_order, "_", "->")
+  df$ImbalanceDrift <- factor(df$ImbalanceDrift, levels=increasing_dynamic_order)
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  
+  dynamic_increasing_plot <- ggplot(df, aes(x=ImbalanceDrift, y=Metric, color=Algorithm, group=Algorithm, shape=Algorithm, linetype=Algorithm)) + 
+    geom_point(size=2) + 
+    geom_line() + 
+    theme_bw() + 
+    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
+    scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
+    labs(x="Minority ratio drift [%]", y = metric, title="Dynamically increasing minority ratio") + 
+    ylim(0.0, 1.0) + 
+    theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
+    theme(legend.position = "none", text = element_text(size=20), axis.text.x = element_text(size=10, angle = 45, hjust = 1))
+  ggsave(paste0("images/dynamic_increasing_plot_", metric, ".eps"), dynamic_increasing_plot)
+  ggsave(paste0("images/dynamic_increasing_plot_", metric, ".png"), dynamic_increasing_plot)
+}
+```
+
+```{r}
+increasing_dynamic <- c(
+'StaticIm2_Im1',  
+'StaticIm3_Im1', 'StaticIm3_Im2',
+'StaticIm5_Im1', 'StaticIm5_Im2', 'StaticIm5_Im3',
+'StaticIm10_Im1', 'StaticIm10_Im2', 'StaticIm10_Im3', 'StaticIm10_Im5',
+'StaticIm20_Im1', 'StaticIm20_Im2', 'StaticIm20_Im3', 'StaticIm20_Im5', 'StaticIm20_Im10',
+'StaticIm30_Im1', 'StaticIm30_Im2', 'StaticIm30_Im3', 'StaticIm30_Im5', 'StaticIm30_Im10', 'StaticIm30_Im20', 
+'StaticIm40_Im1', 'StaticIm40_Im2', 'StaticIm40_Im3', 'StaticIm40_Im5', 'StaticIm40_Im10', 'StaticIm40_Im20', 'StaticIm40_Im30')
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>%
+    filter(Experiment %in% increasing_dynamic) %>%
+    gather("Algorithm", "Metric", 2:6) %>%
+    mutate(ImbalanceDrift = str_replace(Experiment, "Im", "")) %>%
+    mutate(ImbalanceDrift = str_replace(ImbalanceDrift, "Im", "")) %>%
+    mutate(ImbalanceDrift = str_replace(ImbalanceDrift, "Static", "")) %>%
+    mutate(ImbalanceDrift = str_replace(ImbalanceDrift, "_", "->")) %>%
+    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+  
+  increasing_dynamic_order <- str_replace(increasing_dynamic, "Im", "")
+  increasing_dynamic_order <- str_replace(increasing_dynamic_order, "Im", "")
+  increasing_dynamic_order <- str_replace(increasing_dynamic_order, "Static", "")
+  increasing_dynamic_order <- str_replace(increasing_dynamic_order, "_", "->")
+  df$ImbalanceDrift <- factor(df$ImbalanceDrift, levels=increasing_dynamic_order)
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  
+  dynamic_decreasing_plot <- ggplot(df, aes(x=ImbalanceDrift, y=Metric, color=Algorithm, group=Algorithm, shape=Algorithm, linetype=Algorithm)) + 
+    geom_point(size=2) + 
+    geom_line() + 
+    theme_bw() + 
+    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
+    scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
+    labs(x="Minority ratio drift [%]", y = metric, title="Dynamically decreasing minority ratio") + 
+    ylim(0.0, 1.0) + 
+    theme(legend.position = "none", text = element_text(size=20), axis.text.x = element_text(size=10, angle = 45, hjust = 1))
+  
+  ggsave(paste0("images/dynamic_decreasing_plot_", metric, ".eps"), dynamic_decreasing_plot)
+  ggsave(paste0("images/dynamic_decreasing_plot_", metric, ".png"), dynamic_decreasing_plot)
+}
+```
+
+# Single factor borderline
+
+```{r}
+group_name <- "single_borderline"
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
+    filter(grepl('Borderline', Experiment), !grepl('Join', Experiment), !grepl('Move', Experiment), !grepl('Split', Experiment), !grepl('Rare', Experiment))
+  rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
+  total_results_df <- rbind(total_results_df, rank_df)
+}
+```
+
+```{r}
+borderlines <- c("Borderline20", "Borderline40", "Borderline60", "Borderline80", "Borderline100")
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>%
+    filter(Experiment %in% borderlines) %>%
+    gather("Algorithm", "Metric", 2:6) %>%
+    mutate(Borderline = str_replace(Experiment, "Borderline", "")) %>%
+    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+  
+  df$Borderline <- as.integer(df$Borderline)
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  
+  borderline_plot <- ggplot(df, aes(x=Borderline, y=Metric, color=Algorithm, shape=Algorithm)) + 
+    geom_point(size=2) + 
+    geom_line() + 
+    theme_bw() + 
+    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
+    scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
+    labs(x="Borderline examples [%]", y = metric, title="Drifting borderline") + 
+    ylim(0.0, 1.0) + 
+    theme(legend.position = "none", text = element_text(size=20))
+  
+  ggsave(paste0("images/borderline_plot_", metric, ".eps"), borderline_plot, width=5, height=7)
+  ggsave(paste0("images/borderline_plot_", metric, ".png"), borderline_plot, width=5, height=7)
+}
+```
+
+```{r}
+borderlines <- c("Borderline20-post-drift", "Borderline40-post-drift", "Borderline60-post-drift", "Borderline80-post-drift", "Borderline100-post-drift")
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>%
+    filter(Experiment %in% borderlines) %>%
+    gather("Algorithm", "Metric", 2:6) %>%
+    mutate(Borderline = str_replace(Experiment, "Borderline", "")) %>%
+    mutate(Borderline = str_replace(Borderline, "-post-drift", "")) %>%
+    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+  
+  df$Borderline <- as.integer(df$Borderline)
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  
+  borderline_plot <- ggplot(df, aes(x=Borderline, y=Metric, color=Algorithm, shape=Algorithm)) + 
+    geom_point(size=2) + 
+    geom_line() + 
+    theme_bw() + 
+    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
+    scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
+    labs(x="Borderline examples [%]", y = metric, title="Static borderline") + 
+    ylim(0.0, 1.0) + 
+    theme(legend.position = "none", text = element_text(size=20))
+  
+  ggsave(paste0("images/borderline_plot_", metric, "-post-drift.eps"), borderline_plot, width=5, height=7)
+  ggsave(paste0("images/borderline_plot_", metric, "-post-drift.png"), borderline_plot, width=5, height=7)
+}
+```
+
+# Single factor rare
+
+```{r}
+group_name <- "single_rare"
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
+    filter(!grepl('Borderline', Experiment), !grepl('Join', Experiment), !grepl('Move', Experiment), !grepl('Split', Experiment), grepl('Rare', Experiment))
+  rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
+  total_results_df <- rbind(total_results_df, rank_df)
+}
+```
+
+```{r}
+rares <- c("Rare20", "Rare40", "Rare60", "Rare80", "Rare100")
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>%
+    filter(Experiment %in% rares) %>%
+    gather("Algorithm", "Metric", 2:6) %>%
+    mutate(Rare = str_replace(Experiment, "Rare", "")) %>%
+    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+  
+  df$Rare <- as.integer(df$Rare)
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  
+  rare_plot <- ggplot(df, aes(x=Rare, y=Metric, color=Algorithm, shape=Algorithm)) + 
+    geom_point(size=2) + 
+    geom_line() + 
+    theme_bw() + 
+    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
+    scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
+    labs(x="Rare examples [%]", y = metric, title="Drifting rare") + 
+    ylim(0.0, 1.0) + 
+    theme(legend.position = "none", text = element_text(size=20))
+  
+  ggsave(paste0("images/rare_plot_", metric, ".eps"), rare_plot, width=5, height=7)
+  ggsave(paste0("images/rare_plot_", metric, ".png"), rare_plot, width=5, height=7)
+}
+```
+
+```{r}
+rares <- c("Rare20-post-drift", "Rare40-post-drift", "Rare60-post-drift", "Rare80-post-drift", "Rare100-post-drift")
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>%
+    filter(Experiment %in% rares) %>%
+    gather("Algorithm", "Metric", 2:6) %>%
+    mutate(Rare = str_replace(Experiment, "Rare", "")) %>%
+    mutate(Rare = str_replace(Rare, "-post-drift", "")) %>%
+    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+  
+  df$Rare <- as.integer(df$Rare)
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  
+  rare_plot <- ggplot(df, aes(x=Rare, y=Metric, color=Algorithm, shape=Algorithm)) + 
+    geom_point(size=2) + 
+    geom_line() + 
+    theme_bw() + 
+    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) +
+    scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
+    scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
+    labs(x="Rare examples [%]", y = metric, title="Static rare") + 
+    ylim(0.0, 1.0) + 
+    theme(legend.position = "none", text = element_text(size=20))
+  
+  ggsave(paste0("images/rare_plot_", metric, "-post-drift.eps"), rare_plot, width=5, height=7)
+  ggsave(paste0("images/rare_plot_", metric, "-post-drift.png"), rare_plot, width=5, height=7)
+}
+```
+
+# Single factor join
+
+```{r}
+group_name <- "single_join"
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
+    filter(!grepl('Borderline', Experiment), grepl('Join', Experiment), !grepl('Move', Experiment), !grepl('Split', Experiment), !grepl('Rare', Experiment))
+  rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
+  total_results_df <- rbind(total_results_df, rank_df)
+}
+```
+
+```{r}
+joins <- c("Join3", "Join5", "Join7")
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>%
+    filter(Experiment %in% joins) %>%
+    gather("Algorithm", "Metric", 2:6) %>%
+    mutate(Join = str_replace(Experiment, "Join", "")) %>%
+    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+  
+  df$Join <- as.integer(df$Join)
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  
+  join_plot <-  ggplot(df, aes(x=Join, y=Metric, color=Algorithm, shape=Algorithm, linetype=Algorithm)) + 
+    geom_point(size=2) + 
+    geom_line() + 
+    theme_bw() + 
+    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
+    scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
+    labs(x="Sub-cluster joins", y = metric, title="Join") + 
+    ylim(0.85, 1.0) + 
+    theme(legend.position = "top", text = element_text(size=20))
+  
+  ggsave(paste0("images/join_plot_", metric, ".eps"), join_plot, width=7, height=7)
+  ggsave(paste0("images/join_plot_", metric, ".png"), join_plot, width=7, height=7)
+}
+```
+
+# Single factor move
+
+```{r}
+group_name <- "single_move"
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
+    filter(!grepl('Borderline', Experiment), !grepl('Join', Experiment), grepl('Move', Experiment), !grepl('Split', Experiment), !grepl('Rare', Experiment))
+  rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
+  total_results_df <- rbind(total_results_df, rank_df)
+}
+```
+
+
+```{r}
+Moves <- c("Move3", "Move5", "Move7")
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>%
+    filter(Experiment %in% Moves) %>%
+    gather("Algorithm", "Metric", 2:6) %>%
+    mutate(Move = str_replace(Experiment, "Move", "")) %>%
+    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+  
+  df$Move <- as.integer(df$Move)
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  
+  Move_plot <-  ggplot(df, aes(x=Move, y=Metric, color=Algorithm, shape=Algorithm, linetype=Algorithm)) + 
+    geom_point(size=2) + 
+    geom_line() + 
+    theme_bw() + 
+    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
+    scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
+    labs(x="Moving sub-clusters", y = metric, title="Move") + 
+    ylim(0.85, 1.0) + 
+    theme(legend.position = "none", text = element_text(size=20))
+  
+  ggsave(paste0("images/Move_plot_", metric, ".eps"), Move_plot, width=7, height=7)
+  ggsave(paste0("images/Move_plot_", metric, ".png"), Move_plot, width=7, height=7)
+}
+```
+
+# Single factor split
+
+```{r}
+group_name <- "single_split"
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
+    filter(!grepl('Borderline', Experiment), !grepl('Join', Experiment), !grepl('Move', Experiment), grepl('Split', Experiment), !grepl('Rare', Experiment))
+  rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
+  total_results_df <- rbind(total_results_df, rank_df)
+}
+```
+
+```{r}
+Splits <- c("Split3", "Split5", "Split7")
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>%
+    filter(Experiment %in% Splits) %>%
+    gather("Algorithm", "Metric", 2:6) %>%
+    mutate(Split = str_replace(Experiment, "Split", "")) %>%
+    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+  
+  df$Split <- as.integer(df$Split)
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  
+  Split_plot <-  ggplot(df, aes(x=Split, y=Metric, color=Algorithm, shape=Algorithm, linetype=Algorithm)) + 
+    geom_point(size=2) + 
+    geom_line() + 
+    theme_bw() + 
+    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
+    scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
+    labs(x="Sub-cluster splits", y = metric, title="Split") + 
+    ylim(0.85, 1.0) + 
+    theme(legend.position = "none", text = element_text(size=20))
+  
+  ggsave(paste0("images/Split_plot_", metric, ".eps"), Split_plot, width=7, height=7)
+  ggsave(paste0("images/Split_plot_", metric, ".png"), Split_plot, width=7, height=7)
+}
+```
+
+# Single difficulty factors
+
+```{r}
+group_name <- "single"
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
+    filter(!grepl('\\+', Experiment))
+  rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
+  total_results_df <- rbind(total_results_df, rank_df)
+}
+```
+
+# Pair imbalance-borderline
+
+```{r}
+group_name <- "pair_imbalance_borderline"
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
+    filter(grepl('Im', Experiment), grepl('Borderline', Experiment), !grepl('Join', Experiment), !grepl('Move', Experiment), !grepl('Split', Experiment), !grepl('Rare', Experiment))
+  rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
+  total_results_df <- rbind(total_results_df, rank_df)
+}
+```
+
+# Pair imbalance-rare
+
+```{r}
+group_name <- "pair_imbalance_rare"
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
+    filter(grepl('Im', Experiment), !grepl('Borderline', Experiment), !grepl('Join', Experiment), !grepl('Move', Experiment), !grepl('Split', Experiment), grepl('Rare', Experiment))
+  rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
+  total_results_df <- rbind(total_results_df, rank_df)
+}
+```
+
+# Pair imbalance-move
+
+```{r}
+group_name <- "pair_imbalance_move"
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
+    filter(grepl('Im', Experiment), !grepl('Borderline', Experiment), !grepl('Join', Experiment), grepl('Move', Experiment), !grepl('Split', Experiment), !grepl('Rare', Experiment))
+  rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
+  total_results_df <- rbind(total_results_df, rank_df)
+}
+```
+
+# Pair imbalance-join
+
+```{r}
+group_name <- "pair_imbalance_join"
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
+    filter(grepl('Im', Experiment), !grepl('Borderline', Experiment), grepl('Join', Experiment), !grepl('Move', Experiment), !grepl('Split', Experiment), !grepl('Rare', Experiment))
+  rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
+  total_results_df <- rbind(total_results_df, rank_df)
+}
+```
+
+# Pair imbalance-split
+
+```{r}
+group_name <- "pair_imbalance_split"
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
+    filter(grepl('Im', Experiment), !grepl('Borderline', Experiment), !grepl('Join', Experiment), !grepl('Move', Experiment), grepl('Split', Experiment), !grepl('Rare', Experiment))
+  rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
+  total_results_df <- rbind(total_results_df, rank_df)
+}
+```
+
+# Pair split-borderline
+
+```{r}
+group_name <- "pair_split_borderline"
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
+    filter(grepl('Borderline', Experiment), !grepl('Join', Experiment), !grepl('Move', Experiment), grepl('Split', Experiment), !grepl('Rare', Experiment))
+  rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
+  total_results_df <- rbind(total_results_df, rank_df)
+}
+```
+
+# Pair split-rare
+
+```{r}
+group_name <- "pair_split_rare"
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
+    filter(!grepl('Borderline', Experiment), !grepl('Join', Experiment), !grepl('Move', Experiment), grepl('Split', Experiment), grepl('Rare', Experiment))
+  rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
+  total_results_df <- rbind(total_results_df, rank_df)
+}
+```
+
+```{r}
+other_pairs <- c("Im1+Rare100", "Im10+Rare100", "Im10+Rare80", "Im1+Rare80", "Split5+Rare80", "Im10+Rare60", "Split5+Rare60", "Im1+Rare60", "Split5+Rare100", "Borderline40+Rare40", "Split5+Rare40", "Im10+Rare40", "Im1+Rare40", "Split5+Im1", "Split5+Rare20", "Borderline20+Rare20", "Im1+Rare20", "Im10+Rare20", "Split5+Borderline100", "Im1+Borderline60", "Im1+Borderline40", "Split5+Borderline80", "Im1+Borderline80", "Split5+Borderline60", "Im1+Borderline100", "Split5+Borderline40", "Split5+Borderline20", "Im1+Borderline20", "Split5+Im10", "Im10+Borderline60", "Im10+Borderline40", "Im10+Borderline80", "Im10+Borderline100", "Im10+Borderline20")
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>%
+    filter(Experiment %in% other_pairs) %>%
+    gather("Algorithm", "Metric", 2:6) %>%
+    mutate(Experiment = str_replace(Experiment, "_", "+")) %>%
+    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+  
+  df$Experiment <- as.factor(df$Experiment)
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  
+  pair_plot <-  ggplot(df, aes(x=Metric, y=reorder(Experiment, -Metric), color=Algorithm, shape=Algorithm)) + 
+    geom_point(size=2) + 
+    geom_line() + 
+    theme_bw() + 
+    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
+    labs(x=metric, y = "Experiment", title="Pairs") + 
+    xlim(0.0, 1.0) + 
+    theme(legend.position = "none", text = element_text(size=20), axis.text.y = element_text(size=16))
+  
+  ggsave(paste0("images/pair_plot_", metric, ".eps"), pair_plot, width=7, height=10)
+  ggsave(paste0("images/pair_plot_", metric, ".png"), pair_plot, width=7, height=10)
+}
+```
+
+```{r}
+complex <- c("Im1+Borderline20+Rare20", "Im1+Borderline40+Rare40", "Im10+Borderline20+Rare20", "Im10+Borderline40+Rare40", "Split5+Borderline20+Rare20", "Split5+Borderline40+Rare40", "Split5+Im1+Borderline100", "Split5+Im1+Borderline20", "Split5+Im1+Borderline20+Rare20", "Split5+Im1+Borderline40", "Split5+Im1+Borderline40+Rare40", "Split5+Im1+Borderline60", "Split5+Im1+Borderline80", "Split5+Im1+Rare100", "Split5+Im1+Rare20", "Split5+Im1+Rare40", "Split5+Im1+Rare60", "Split5+Im1+Rare80", "Split5+Im10+Borderline100", "Split5+Im10+Borderline20", "Split5+Im10+Borderline20+Rare20", "Split5+Im10+Borderline40", "Split5+Im10+Borderline40+Rare40", "Split5+Im10+Borderline60", "Split5+Im10+Borderline80", "Split5+Im10+Rare100", "Split5+Im10+Rare20", "Split5+Im10+Rare40", "Split5+Im10+Rare60", "Split5+Im10+Rare80", "StaticIm10_Im1+Borderline20+Rare20", "StaticIm10_Im1+Borderline40+Rare40", "StaticIm10_Split5+Borderline20+Rare20", "StaticIm10_Split5+Borderline40+Rare40", "StaticIm10_Split5+Im1+Borderline100", "StaticIm10_Split5+Im1+Borderline20", "StaticIm10_Split5+Im1+Borderline20+Rare20", "StaticIm10_Split5+Im1+Borderline40", "StaticIm10_Split5+Im1+Borderline40+Rare40", "StaticIm10_Split5+Im1+Borderline60", "StaticIm10_Split5+Im1+Borderline80", "StaticIm10_Split5+Im1+Rare100", "StaticIm10_Split5+Im1+Rare20", "StaticIm10_Split5+Im1+Rare40", "StaticIm10_Split5+Im1+Rare60", "StaticIm10_Split5+Im1+Rare80")
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>%
+    filter(Experiment %in% complex) %>%
+    gather("Algorithm", "Metric", 2:6) %>%
+    mutate(Experiment = str_replace(Experiment, "_", "+")) %>%
+    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+  
+  df$Experiment <- as.factor(df$Experiment)
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  
+  complex_plot <-  ggplot(df, aes(x=Metric, y=reorder(Experiment, -Metric), color=Algorithm, shape=Algorithm)) + 
+    geom_point(size=2) + 
+    geom_line() + 
+    theme_bw() + 
+    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
+    labs(x=metric, y = "Experiment", title="Complex scenarios") + 
+    xlim(0.0, 1.0) + 
+    theme(legend.position = "none", text = element_text(size=20), axis.text.y = element_text(size=16))
+  
+  ggsave(paste0("images/complex_plot_", metric, ".eps"), complex_plot, width=10, height=10)
+  ggsave(paste0("images/complex_plot_", metric, ".png"), complex_plot, width=10, height=10)
+}
+```
+
+# Multiple difficulty factors
+
+```{r}
+group_name <- "multiple"
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
+    filter(grepl('\\+', Experiment))
+  rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
+  total_results_df <- rbind(total_results_df, rank_df)
+}
+```
+
+# All datasets
+
+```{r}
+group_name <- "all"
+
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".")
+  rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
+  
+  total_results_df <- rbind(total_results_df, rank_df)
+}
+```
+
+```{r}
+prettyTable(total_results_df, round_columns = c("OOB", "UOB", "OB", "VFDT", "ESOS.ELM", "CD"), round_digits = 2)
+```
