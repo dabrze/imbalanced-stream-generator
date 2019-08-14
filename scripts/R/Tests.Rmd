@@ -138,8 +138,8 @@ for (metric in metrics){
     labs(x="Minority class ratio [%]", y = metric, title="Static imbalance ratio") + 
     ylim(0.0, 1.0) + 
     theme(legend.position = "none", text = element_text(size=20))
-  ggsave(paste0("images/imbalance_plot_", metric, ".eps"), imbalance_plot)
-  ggsave(paste0("images/imbalance_plot_", metric, ".png"), imbalance_plot)
+  ggsave(paste0("images/imbalance_plot_", metric, ".eps"), imbalance_plot, width=7, height=7)
+  ggsave(paste0("images/imbalance_plot_", metric, ".png"), imbalance_plot, width=7, height=7)
 }
 ```
 
@@ -200,8 +200,8 @@ for (metric in metrics){
     ylim(0.0, 1.0) + 
     theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
     theme(legend.position = "none", text = element_text(size=20), axis.text.x = element_text(size=10, angle = 45, hjust = 1))
-  ggsave(paste0("images/dynamic_increasing_plot_", metric, ".eps"), dynamic_increasing_plot)
-  ggsave(paste0("images/dynamic_increasing_plot_", metric, ".png"), dynamic_increasing_plot)
+  ggsave(paste0("images/dynamic_increasing_plot_", metric, ".eps"), dynamic_increasing_plot, width=7, height=7)
+  ggsave(paste0("images/dynamic_increasing_plot_", metric, ".png"), dynamic_increasing_plot, width=7, height=7)
 }
 ```
 
@@ -244,8 +244,8 @@ for (metric in metrics){
     ylim(0.0, 1.0) + 
     theme(legend.position = "none", text = element_text(size=20), axis.text.x = element_text(size=10, angle = 45, hjust = 1))
   
-  ggsave(paste0("images/dynamic_decreasing_plot_", metric, ".eps"), dynamic_decreasing_plot)
-  ggsave(paste0("images/dynamic_decreasing_plot_", metric, ".png"), dynamic_decreasing_plot)
+  ggsave(paste0("images/dynamic_decreasing_plot_", metric, ".eps"), dynamic_decreasing_plot, width=7, height=7)
+  ggsave(paste0("images/dynamic_decreasing_plot_", metric, ".png"), dynamic_decreasing_plot, width=7, height=7)
 }
 ```
 
@@ -436,7 +436,7 @@ for (metric in metrics){
     scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
     labs(x="Sub-cluster joins", y = metric, title="Join") + 
     ylim(0.85, 1.0) + 
-    theme(legend.position = "top", text = element_text(size=20))
+    theme(legend.position = "none", text = element_text(size=20))
   
   ggsave(paste0("images/join_plot_", metric, ".eps"), join_plot, width=7, height=7)
   ggsave(paste0("images/join_plot_", metric, ".png"), join_plot, width=7, height=7)
