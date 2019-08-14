@@ -9,7 +9,7 @@ The repository contains generator source code, experimental scripts including da
 - the main folder contains a (bash) `makefile`, list of python modules used to process experimental results (`python.requirements`), and a script for generating various streams discussed in the accompanying research paper
 - `src` contains Java source code compatible with MOA; to use the data stream generator and classifiers attach this code to your project or include it while running moa.jar
 - `scripts` contains python source code use to post-process experimental results
-- `research/evaluations` contains cached experiment results
+- `research` contains cached experiment results in the form of: 1) csv files containing classifier performance values over time, 2) classifier performance plots, 3) classifier perofmance values averaged over entire streams
 
 ## Contact
 
