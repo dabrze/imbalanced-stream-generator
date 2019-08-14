@@ -438,8 +438,8 @@ for (metric in metrics){
     ylim(0.85, 1.0) + 
     theme(legend.position = "none", text = element_text(size=20))
   
-  ggsave(paste0("images/join_plot_", metric, ".eps"), join_plot, width=7, height=7)
-  ggsave(paste0("images/join_plot_", metric, ".png"), join_plot, width=7, height=7)
+  ggsave(paste0("images/join_plot_", metric, ".eps"), join_plot, width=5, height=7)
+  ggsave(paste0("images/join_plot_", metric, ".png"), join_plot, width=5, height=7)
 }
 ```
 
@@ -483,8 +483,8 @@ for (metric in metrics){
     ylim(0.85, 1.0) + 
     theme(legend.position = "none", text = element_text(size=20))
   
-  ggsave(paste0("images/Move_plot_", metric, ".eps"), Move_plot, width=7, height=7)
-  ggsave(paste0("images/Move_plot_", metric, ".png"), Move_plot, width=7, height=7)
+  ggsave(paste0("images/Move_plot_", metric, ".eps"), Move_plot, width=5, height=7)
+  ggsave(paste0("images/Move_plot_", metric, ".png"), Move_plot, width=5, height=7)
 }
 ```
 
@@ -527,8 +527,39 @@ for (metric in metrics){
     ylim(0.85, 1.0) + 
     theme(legend.position = "none", text = element_text(size=20))
   
-  ggsave(paste0("images/Split_plot_", metric, ".eps"), Split_plot, width=7, height=7)
-  ggsave(paste0("images/Split_plot_", metric, ".png"), Split_plot, width=7, height=7)
+  ggsave(paste0("images/Split_plot_", metric, ".eps"), Split_plot, width=5, height=7)
+  ggsave(paste0("images/Split_plot_", metric, ".png"), Split_plot, width=5, height=7)
+}
+```
+
+```{r}
+Splits <- c("Split3-post-drift", "Split5-post-drift", "Split7-post-drift")
+
+for (metric in metrics){
+  data_name <- paste0(metric, "-", suffix,".csv")
+  df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>%
+    filter(Experiment %in% Splits) %>%
+    gather("Algorithm", "Metric", 2:6) %>%
+    mutate(Split = str_replace(Experiment, "Split", "")) %>%
+    mutate(Split = str_replace(Split, "-post-drift", "")) %>%
+    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+  
+  df$Split <- as.integer(df$Split)
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  
+  Split_plot <-  ggplot(df, aes(x=Split, y=Metric, color=Algorithm, shape=Algorithm, linetype=Algorithm)) + 
+    geom_point(size=2) + 
+    geom_line() + 
+    theme_bw() + 
+    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
+    scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
+    labs(x="Sub-clusters", y = metric, title="Static decomposition") + 
+    ylim(0.85, 1.0) + 
+    theme(legend.position = "none", text = element_text(size=20))
+  
+  ggsave(paste0("images/Subclusters_plot_", metric, ".eps"), Split_plot, width=5, height=7)
+  ggsave(paste0("images/Subclusters_plot_", metric, ".png"), Split_plot, width=5, height=7)
 }
 ```
 
