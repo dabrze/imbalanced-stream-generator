@@ -23,12 +23,13 @@ args = parser.parse_args()
 lw = 0.5
 me = 10
 ms = 5
+plt.rcParams.update({'font.size': 13})
 
 def RGB(R,G,B):
 	return R/255, G/255, B/255
 
-#colors = [RGB(20,20,20), RGB(70,70,70), RGB(120,120,120), RGB(160,160,160), RGB(190,190,190)]
-colors = ['r', 'g', 'b', 'orange', 'm']
+colors = [RGB(204,51,17), RGB(0,153,136), RGB(0,119,187), RGB(238,119,51), RGB(238,51,119)]
+#colors = ['r', 'g', 'b', 'orange', 'm']
 
 lines_styles = cycle([
 	{'color': colors[0], 'ls': '-', 'marker': 'o', 'markevery': me, 'markersize': ms, 'linewidth': lw},
@@ -45,14 +46,18 @@ def plot_metrics(input_dir, output_dir):
 	for metric in args.metrics:
 		ax = plt.gca()
 		for point_name in [' ', 'start', 'pre-dirft', 'post-drift', 'end']:
-			ax.plot([], [], ' ', label = point_name)
+			ax.plot([], [], ' ', label=point_name)
 		for name in classifiers.keys() if args.o is None else args.o:
 			data = classifiers[name]
+
+			if name == "ESOS_ELM":
+				name = "ESOS"
+
 			y_label = metric
 			if args.a is not None:
 				y_label = 'rolling_' + metric
 				data[y_label] = data[metric].rolling(window=args.a, min_periods=1).mean()
-			ax = data.plot(**next(lines_styles), x=x_label, y=y_label, label=name, ax=ax, figsize=(7, 3))
+			ax = data.plot(**next(lines_styles), x=x_label, y=y_label, label=name, ax=ax, figsize=(7, 5))
 			legend_data = [
 				data[y_label].iloc[0],
 				data.loc[data[x_label] == args.d[0], y_label].item(),
@@ -61,12 +66,13 @@ def plot_metrics(input_dir, output_dir):
 			for value in legend_data:
 				ax.plot([], [], ' ', label='{:.4f}'.format(value))
 		#ax.set_title(os.path.basename(input_dir) + ': ' + metric)
-		ax.set_xlabel(x_label + ' [x1000]')
+		ax.set_xlabel('Number of processed instances [x1000]')
 		ax.set_ylabel(metric)
 		if args.y:
 			ax.set_ylim([-0.05, 1.05])
 			ax.yaxis.set_major_locator(ticker.MultipleLocator(0.1))
 		ax.xaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x / 1000)))
+
 		if args.d is not None and not '-post-drift' in input_dir \
 				and not ("Static" in input_dir and not '_' in input_dir):
 			#the post-drift scenarios are to be static. The script is used in makefile where the whole
@@ -75,8 +81,10 @@ def plot_metrics(input_dir, output_dir):
 				ax.axvline(x=coord, linestyle=(0, (5, 10)), color='k', linewidth=.5)
 				if i % 2 == 1:
 					ax.axvspan(args.d[i], args.d[i - 1], facecolor='lightgray', alpha=0.5)
-		ax.legend(loc='lower center', bbox_to_anchor=(0, 1.01, 1, 0.1), ncol=6)
-		plt.savefig(os.path.join(output_dir, metric + '.png'), bbox_inches='tight', dpi=600)
+		ax.legend(loc='lower center', bbox_to_anchor=(-0.25, 1.02, 1.25, 0.2), ncol=6, mode="expand", borderaxespad=0.,
+				  frameon=False)
+		plt.savefig(os.path.join(output_dir, metric + '.png'), bbox_inches='tight', dpi=96)
+		plt.savefig(os.path.join(output_dir, metric + '.svg'), bbox_inches='tight')
 		plt.close()
 
 if args.r:

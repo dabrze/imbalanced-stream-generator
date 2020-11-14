@@ -123,24 +123,27 @@ for (metric in metrics){
     gather("Algorithm", "Metric", 2:6) %>%
     mutate(Ratio = str_replace(Experiment, "Im", "")) %>%
     mutate(Ratio = str_replace(Ratio, "Static", "")) %>%
-    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+    mutate(Algorithm = str_replace(Algorithm, "_ELM", ""))
   
   df$Ratio <- as.integer(df$Ratio)
-  df$Algorithm <- ordered(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  df$Algorithm <- ordered(df$Algorithm, levels=c("ESOS", "OOB", "UOB", "OB", "VFDT"))
   
   imbalance_plot <- ggplot(df, aes(x=Ratio, y=Metric, color=Algorithm, shape=Algorithm, linetype=Algorithm)) + 
-    geom_point(size=2) + 
+    geom_point(size=2.2) + 
     geom_line() + 
-    theme_bw() + 
-    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    theme_classic() + 
+    scale_color_manual(values = c("#CC3311", "#009988", "#0077BB", "#EE7733", "#EE3377")) + 
     scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
     scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
-    labs(x="Minority class ratio [%]", y = metric, title="Static imbalance ratio") + 
+    labs(x="Minority class ratio [%]", y = metric#, title="Static imbalance ratio"
+         ) + 
     ylim(0.0, 1.0) + 
-    theme(legend.position = "none", text = element_text(size=20))
-  ggsave(paste0("images/imbalance_plot_", metric, ".eps"), imbalance_plot, width=7, height=7)
+    theme(legend.position = "top", text = element_text(size=20), axis.text = element_text(colour = "black"),
+          panel.border = element_rect(linetype = "solid", fill = NA))
+  ggsave(paste0("images/imbalance_plot_", metric, ".svg"), imbalance_plot, width=7, height=7)
   ggsave(paste0("images/imbalance_plot_", metric, ".png"), imbalance_plot, width=7, height=7)
 }
+imbalance_plot
 ```
 
 # Imbalance ratio changes
@@ -180,29 +183,31 @@ for (metric in metrics){
     mutate(ImbalanceDrift = str_replace(ImbalanceDrift, "Im", "")) %>%
     mutate(ImbalanceDrift = str_replace(ImbalanceDrift, "Static", "")) %>%
     mutate(ImbalanceDrift = str_replace(ImbalanceDrift, "_", "->")) %>%
-    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+    mutate(Algorithm = str_replace(Algorithm, "_ELM", ""))
   
   increasing_dynamic_order <- str_replace(increasing_dynamic, "Im", "")
   increasing_dynamic_order <- str_replace(increasing_dynamic_order, "Im", "")
   increasing_dynamic_order <- str_replace(increasing_dynamic_order, "Static", "")
   increasing_dynamic_order <- str_replace(increasing_dynamic_order, "_", "->")
   df$ImbalanceDrift <- factor(df$ImbalanceDrift, levels=increasing_dynamic_order)
-  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS", "OOB", "UOB", "OB", "VFDT"))
   
   dynamic_increasing_plot <- ggplot(df, aes(x=ImbalanceDrift, y=Metric, color=Algorithm, group=Algorithm, shape=Algorithm, linetype=Algorithm)) + 
-    geom_point(size=2) + 
-    geom_line() + 
-    theme_bw() + 
-    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    geom_point(size=2.2) + 
+    coord_flip() +
+    theme_classic() + 
+    scale_color_manual(values = c("#CC3311", "#009988", "#0077BB", "#EE7733", "#EE3377")) + 
     scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
     scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
-    labs(x="Minority ratio drift [%]", y = metric, title="Dynamically increasing minority ratio") + 
+    labs(x="Minority ratio drift [%]", y = metric) + 
     ylim(0.0, 1.0) + 
-    theme(axis.text.x = element_text(angle = 45, hjust = 1)) + 
-    theme(legend.position = "none", text = element_text(size=20), axis.text.x = element_text(size=10, angle = 45, hjust = 1))
-  ggsave(paste0("images/dynamic_increasing_plot_", metric, ".eps"), dynamic_increasing_plot, width=7, height=7)
+    theme(legend.position = "none", text = element_text(size=20), axis.text = element_text(colour = "black"),
+          axis.text.y = element_text(size=15), panel.border = element_rect(linetype = "solid", fill = NA))
+  ggsave(paste0("images/dynamic_increasing_plot_", metric, ".svg"), dynamic_increasing_plot, width=7, height=7)
   ggsave(paste0("images/dynamic_increasing_plot_", metric, ".png"), dynamic_increasing_plot, width=7, height=7)
 }
+
+dynamic_increasing_plot
 ```
 
 ```{r}
@@ -224,29 +229,33 @@ for (metric in metrics){
     mutate(ImbalanceDrift = str_replace(ImbalanceDrift, "Im", "")) %>%
     mutate(ImbalanceDrift = str_replace(ImbalanceDrift, "Static", "")) %>%
     mutate(ImbalanceDrift = str_replace(ImbalanceDrift, "_", "->")) %>%
-    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+    mutate(Algorithm = str_replace(Algorithm, "_ELM", ""))
   
   increasing_dynamic_order <- str_replace(increasing_dynamic, "Im", "")
   increasing_dynamic_order <- str_replace(increasing_dynamic_order, "Im", "")
   increasing_dynamic_order <- str_replace(increasing_dynamic_order, "Static", "")
   increasing_dynamic_order <- str_replace(increasing_dynamic_order, "_", "->")
   df$ImbalanceDrift <- factor(df$ImbalanceDrift, levels=increasing_dynamic_order)
-  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS", "OOB", "UOB", "OB", "VFDT"))
   
   dynamic_decreasing_plot <- ggplot(df, aes(x=ImbalanceDrift, y=Metric, color=Algorithm, group=Algorithm, shape=Algorithm, linetype=Algorithm)) + 
-    geom_point(size=2) + 
-    geom_line() + 
-    theme_bw() + 
-    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    geom_point(size=2.2) + 
+    coord_flip() + 
+    theme_classic() + 
+    scale_color_manual(values = c("#CC3311", "#009988", "#0077BB", "#EE7733", "#EE3377")) + 
     scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
     scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
-    labs(x="Minority ratio drift [%]", y = metric, title="Dynamically decreasing minority ratio") + 
+    labs(x="Minority ratio drift [%]", y = metric) + 
     ylim(0.0, 1.0) + 
-    theme(legend.position = "none", text = element_text(size=20), axis.text.x = element_text(size=10, angle = 45, hjust = 1))
+    theme(legend.position = "none", text = element_text(size=20), axis.text = element_text(colour = "black"),
+          panel.border = element_rect(linetype = "solid", fill = NA), 
+          axis.text.y = element_text(size=15))
   
-  ggsave(paste0("images/dynamic_decreasing_plot_", metric, ".eps"), dynamic_decreasing_plot, width=7, height=7)
+  ggsave(paste0("images/dynamic_decreasing_plot_", metric, ".svg"), dynamic_decreasing_plot, width=7, height=7)
   ggsave(paste0("images/dynamic_decreasing_plot_", metric, ".png"), dynamic_decreasing_plot, width=7, height=7)
 }
+
+dynamic_decreasing_plot
 ```
 
 # Single factor borderline
@@ -272,25 +281,28 @@ for (metric in metrics){
     filter(Experiment %in% borderlines) %>%
     gather("Algorithm", "Metric", 2:6) %>%
     mutate(Borderline = str_replace(Experiment, "Borderline", "")) %>%
-    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+    mutate(Algorithm = str_replace(Algorithm, "_ELM", ""))
   
   df$Borderline <- as.integer(df$Borderline)
-  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS", "OOB", "UOB", "OB", "VFDT"))
   
   borderline_plot <- ggplot(df, aes(x=Borderline, y=Metric, color=Algorithm, shape=Algorithm)) + 
-    geom_point(size=2) + 
+    geom_point(size=2.2) + 
     geom_line() + 
-    theme_bw() + 
-    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    theme_classic() + 
+    scale_color_manual(values = c("#CC3311", "#009988", "#0077BB", "#EE7733", "#EE3377")) + 
     scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
     scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
-    labs(x="Borderline examples [%]", y = metric, title="Drifting borderline") + 
+    labs(x="Borderline examples after drift [%]", y = metric) + 
     ylim(0.0, 1.0) + 
-    theme(legend.position = "none", text = element_text(size=20))
+    theme(legend.position = "none", text = element_text(size=20), axis.text = element_text(colour = "black"),
+          panel.border = element_rect(linetype = "solid", fill = NA))
   
-  ggsave(paste0("images/borderline_plot_", metric, ".eps"), borderline_plot, width=5, height=7)
-  ggsave(paste0("images/borderline_plot_", metric, ".png"), borderline_plot, width=5, height=7)
+  ggsave(paste0("images/borderline_plot_", metric, ".eps"), borderline_plot, width=5, height=5)
+  ggsave(paste0("images/borderline_plot_", metric, ".png"), borderline_plot, width=5, height=5)
 }
+
+borderline_plot
 ```
 
 ```{r}
@@ -303,25 +315,28 @@ for (metric in metrics){
     gather("Algorithm", "Metric", 2:6) %>%
     mutate(Borderline = str_replace(Experiment, "Borderline", "")) %>%
     mutate(Borderline = str_replace(Borderline, "-post-drift", "")) %>%
-    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+    mutate(Algorithm = str_replace(Algorithm, "_ELM", ""))
   
   df$Borderline <- as.integer(df$Borderline)
-  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS", "OOB", "UOB", "OB", "VFDT"))
   
   borderline_plot <- ggplot(df, aes(x=Borderline, y=Metric, color=Algorithm, shape=Algorithm)) + 
-    geom_point(size=2) + 
+    geom_point(size=2.2) + 
     geom_line() + 
-    theme_bw() + 
-    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    theme_classic() + 
+    scale_color_manual(values = c("#CC3311", "#009988", "#0077BB", "#EE7733", "#EE3377")) + 
     scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
     scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
-    labs(x="Borderline examples [%]", y = metric, title="Static borderline") + 
+    labs(x="Static borderline examples [%]", y = metric) + 
     ylim(0.0, 1.0) + 
-    theme(legend.position = "none", text = element_text(size=20))
+    theme(legend.position = "none", text = element_text(size=20), axis.text = element_text(colour = "black"),
+          panel.border = element_rect(linetype = "solid", fill = NA))
   
-  ggsave(paste0("images/borderline_plot_", metric, "-post-drift.eps"), borderline_plot, width=5, height=7)
-  ggsave(paste0("images/borderline_plot_", metric, "-post-drift.png"), borderline_plot, width=5, height=7)
+  ggsave(paste0("images/borderline_plot_", metric, "-post-drift.eps"), borderline_plot, width=5, height=5)
+  ggsave(paste0("images/borderline_plot_", metric, "-post-drift.png"), borderline_plot, width=5, height=5)
 }
+
+borderline_plot
 ```
 
 # Single factor rare
@@ -347,25 +362,29 @@ for (metric in metrics){
     filter(Experiment %in% rares) %>%
     gather("Algorithm", "Metric", 2:6) %>%
     mutate(Rare = str_replace(Experiment, "Rare", "")) %>%
-    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+    mutate(Algorithm = str_replace(Algorithm, "_ELM", ""))
   
   df$Rare <- as.integer(df$Rare)
-  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS", "OOB", "UOB", "OB", "VFDT"))
   
   rare_plot <- ggplot(df, aes(x=Rare, y=Metric, color=Algorithm, shape=Algorithm)) + 
-    geom_point(size=2) + 
+    geom_point(size=2.2) + 
     geom_line() + 
-    theme_bw() + 
-    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    theme_classic() + 
+    scale_color_manual(values = c("#CC3311", "#009988", "#0077BB", "#EE7733", "#EE3377")) + 
     scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
     scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
-    labs(x="Rare examples [%]", y = metric, title="Drifting rare") + 
+    labs(x="Rare examples after drift [%]", y = metric) + 
     ylim(0.0, 1.0) + 
-    theme(legend.position = "none", text = element_text(size=20))
+    theme(legend.position = "none", text = element_text(size=20),
+          axis.text = element_text(colour = "black"),
+          panel.border = element_rect(linetype = "solid", fill = NA))
   
-  ggsave(paste0("images/rare_plot_", metric, ".eps"), rare_plot, width=5, height=7)
-  ggsave(paste0("images/rare_plot_", metric, ".png"), rare_plot, width=5, height=7)
+  ggsave(paste0("images/rare_plot_", metric, ".eps"), rare_plot, width=5, height=5)
+  ggsave(paste0("images/rare_plot_", metric, ".png"), rare_plot, width=5, height=5)
 }
+
+rare_plot
 ```
 
 ```{r}
@@ -378,25 +397,29 @@ for (metric in metrics){
     gather("Algorithm", "Metric", 2:6) %>%
     mutate(Rare = str_replace(Experiment, "Rare", "")) %>%
     mutate(Rare = str_replace(Rare, "-post-drift", "")) %>%
-    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+    mutate(Algorithm = str_replace(Algorithm, "_ELM", ""))
   
   df$Rare <- as.integer(df$Rare)
-  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS", "OOB", "UOB", "OB", "VFDT"))
   
   rare_plot <- ggplot(df, aes(x=Rare, y=Metric, color=Algorithm, shape=Algorithm)) + 
-    geom_point(size=2) + 
+    geom_point(size=2.2) + 
     geom_line() + 
-    theme_bw() + 
-    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) +
+    theme_classic() + 
+    scale_color_manual(values = c("#CC3311", "#009988", "#0077BB", "#EE7733", "#EE3377")) + 
     scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
     scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
-    labs(x="Rare examples [%]", y = metric, title="Static rare") + 
+    labs(x="Static rare examples [%]", y = metric) + 
     ylim(0.0, 1.0) + 
-    theme(legend.position = "none", text = element_text(size=20))
+    theme(legend.position = "none", text = element_text(size=20),
+          axis.text = element_text(colour = "black"),
+          panel.border = element_rect(linetype = "solid", fill = NA))
   
-  ggsave(paste0("images/rare_plot_", metric, "-post-drift.eps"), rare_plot, width=5, height=7)
-  ggsave(paste0("images/rare_plot_", metric, "-post-drift.png"), rare_plot, width=5, height=7)
+  ggsave(paste0("images/rare_plot_", metric, "-post-drift.eps"), rare_plot, width=5, height=5)
+  ggsave(paste0("images/rare_plot_", metric, "-post-drift.png"), rare_plot, width=5, height=5)
 }
+
+rare_plot
 ```
 
 # Single factor join
@@ -422,25 +445,29 @@ for (metric in metrics){
     filter(Experiment %in% joins) %>%
     gather("Algorithm", "Metric", 2:6) %>%
     mutate(Join = str_replace(Experiment, "Join", "")) %>%
-    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+    mutate(Algorithm = str_replace(Algorithm, "_ELM", ""))
   
   df$Join <- as.integer(df$Join)
-  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS", "OOB", "UOB", "OB", "VFDT"))
   
   join_plot <-  ggplot(df, aes(x=Join, y=Metric, color=Algorithm, shape=Algorithm, linetype=Algorithm)) + 
-    geom_point(size=2) + 
+    geom_point(size=2.2) + 
     geom_line() + 
-    theme_bw() + 
-    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    theme_classic() + 
+    scale_color_manual(values = c("#CC3311", "#009988", "#0077BB", "#EE7733", "#EE3377")) + 
     scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
     scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
-    labs(x="Sub-cluster joins", y = metric, title="Join") + 
+    labs(x="Merging sub-clusters", y = metric) + 
     ylim(0.85, 1.0) + 
-    theme(legend.position = "none", text = element_text(size=20))
+    theme(legend.position = "none", text = element_text(size=20),
+          axis.text = element_text(colour = "black"),
+          panel.border = element_rect(linetype = "solid", fill = NA))
   
-  ggsave(paste0("images/join_plot_", metric, ".eps"), join_plot, width=5, height=7)
-  ggsave(paste0("images/join_plot_", metric, ".png"), join_plot, width=5, height=7)
+  ggsave(paste0("images/join_plot_", metric, ".eps"), join_plot, width=5, height=5)
+  ggsave(paste0("images/join_plot_", metric, ".png"), join_plot, width=5, height=5)
 }
+
+join_plot
 ```
 
 # Single factor move
@@ -467,25 +494,29 @@ for (metric in metrics){
     filter(Experiment %in% Moves) %>%
     gather("Algorithm", "Metric", 2:6) %>%
     mutate(Move = str_replace(Experiment, "Move", "")) %>%
-    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+    mutate(Algorithm = str_replace(Algorithm, "_ELM", ""))
   
   df$Move <- as.integer(df$Move)
-  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS", "OOB", "UOB", "OB", "VFDT"))
   
   Move_plot <-  ggplot(df, aes(x=Move, y=Metric, color=Algorithm, shape=Algorithm, linetype=Algorithm)) + 
-    geom_point(size=2) + 
+    geom_point(size=2.2) + 
     geom_line() + 
-    theme_bw() + 
-    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    theme_classic() + 
+    scale_color_manual(values = c("#CC3311", "#009988", "#0077BB", "#EE7733", "#EE3377")) + 
     scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
     scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
-    labs(x="Moving sub-clusters", y = metric, title="Move") + 
+    labs(x="Moving sub-clusters", y = metric) + 
     ylim(0.85, 1.0) + 
-    theme(legend.position = "none", text = element_text(size=20))
+    theme(legend.position = "none", text = element_text(size=20),
+          axis.text = element_text(colour = "black"),
+          panel.border = element_rect(linetype = "solid", fill = NA))
   
-  ggsave(paste0("images/Move_plot_", metric, ".eps"), Move_plot, width=5, height=7)
-  ggsave(paste0("images/Move_plot_", metric, ".png"), Move_plot, width=5, height=7)
+  ggsave(paste0("images/Move_plot_", metric, ".eps"), Move_plot, width=5, height=5)
+  ggsave(paste0("images/Move_plot_", metric, ".png"), Move_plot, width=5, height=5)
 }
+
+Move_plot
 ```
 
 # Single factor split
@@ -511,25 +542,29 @@ for (metric in metrics){
     filter(Experiment %in% Splits) %>%
     gather("Algorithm", "Metric", 2:6) %>%
     mutate(Split = str_replace(Experiment, "Split", "")) %>%
-    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+    mutate(Algorithm = str_replace(Algorithm, "_ELM", ""))
   
   df$Split <- as.integer(df$Split)
-  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS", "OOB", "UOB", "OB", "VFDT"))
   
   Split_plot <-  ggplot(df, aes(x=Split, y=Metric, color=Algorithm, shape=Algorithm, linetype=Algorithm)) + 
-    geom_point(size=2) + 
+    geom_point(size=2.2) + 
     geom_line() + 
-    theme_bw() + 
-    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    theme_classic() + 
+    scale_color_manual(values = c("#CC3311", "#009988", "#0077BB", "#EE7733", "#EE3377")) + 
     scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
     scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
-    labs(x="Sub-cluster splits", y = metric, title="Split") + 
+    labs(x="Sub-cluster splits", y = metric) + 
     ylim(0.85, 1.0) + 
-    theme(legend.position = "none", text = element_text(size=20))
+    theme(legend.position = "none", text = element_text(size=20),
+          axis.text = element_text(colour = "black"),
+          panel.border = element_rect(linetype = "solid", fill = NA))
   
-  ggsave(paste0("images/Split_plot_", metric, ".eps"), Split_plot, width=5, height=7)
-  ggsave(paste0("images/Split_plot_", metric, ".png"), Split_plot, width=5, height=7)
+  ggsave(paste0("images/Split_plot_", metric, ".eps"), Split_plot, width=5, height=5)
+  ggsave(paste0("images/Split_plot_", metric, ".png"), Split_plot, width=5, height=5)
 }
+
+Split_plot
 ```
 
 ```{r}
@@ -542,25 +577,29 @@ for (metric in metrics){
     gather("Algorithm", "Metric", 2:6) %>%
     mutate(Split = str_replace(Experiment, "Split", "")) %>%
     mutate(Split = str_replace(Split, "-post-drift", "")) %>%
-    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+    mutate(Algorithm = str_replace(Algorithm, "_ELM", ""))
   
   df$Split <- as.integer(df$Split)
-  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS", "OOB", "UOB", "OB", "VFDT"))
   
   Split_plot <-  ggplot(df, aes(x=Split, y=Metric, color=Algorithm, shape=Algorithm, linetype=Algorithm)) + 
-    geom_point(size=2) + 
+    geom_point(size=2.2) + 
     geom_line() + 
-    theme_bw() + 
-    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    theme_classic() + 
+    scale_color_manual(values = c("#CC3311", "#009988", "#0077BB", "#EE7733", "#EE3377")) + 
     scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
     scale_linetype_manual(values = c("solid", "dashed", "dotdash", "dotted", "twodash")) + 
-    labs(x="Sub-clusters", y = metric, title="Static decomposition") + 
+    labs(x="Static sub-clusters", y = metric) + 
     ylim(0.85, 1.0) + 
-    theme(legend.position = "none", text = element_text(size=20))
+    theme(legend.position = "none", text = element_text(size=20),
+          axis.text = element_text(colour = "black"),
+          panel.border = element_rect(linetype = "solid", fill = NA))
   
-  ggsave(paste0("images/Subclusters_plot_", metric, ".eps"), Split_plot, width=5, height=7)
-  ggsave(paste0("images/Subclusters_plot_", metric, ".png"), Split_plot, width=5, height=7)
+  ggsave(paste0("images/Subclusters_plot_", metric, ".eps"), Split_plot, width=5, height=5)
+  ggsave(paste0("images/Subclusters_plot_", metric, ".png"), Split_plot, width=5, height=5)
 }
+
+Split_plot
 ```
 
 # Single difficulty factors
@@ -684,24 +723,27 @@ for (metric in metrics){
     filter(Experiment %in% other_pairs) %>%
     gather("Algorithm", "Metric", 2:6) %>%
     mutate(Experiment = str_replace(Experiment, "_", "+")) %>%
-    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+    mutate(Algorithm = str_replace(Algorithm, "_ELM", ""))
   
   df$Experiment <- as.factor(df$Experiment)
-  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS", "OOB", "UOB", "OB", "VFDT"))
   
   pair_plot <-  ggplot(df, aes(x=Metric, y=reorder(Experiment, -Metric), color=Algorithm, shape=Algorithm)) + 
-    geom_point(size=2) + 
-    geom_line() + 
-    theme_bw() + 
-    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    geom_point(size=2.2) + 
+    theme_classic() + 
+    scale_color_manual(values = c("#CC3311", "#009988", "#0077BB", "#EE7733", "#EE3377")) + 
     scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
-    labs(x=metric, y = "Experiment", title="Pairs") + 
+    labs(x=metric, y = "Data stream name") + 
     xlim(0.0, 1.0) + 
-    theme(legend.position = "none", text = element_text(size=20), axis.text.y = element_text(size=16))
+    theme(legend.position = "none", text = element_text(size=20), axis.text.y = element_text(size=16),
+          axis.text = element_text(colour = "black"),
+          panel.border = element_rect(linetype = "solid", fill = NA))
   
   ggsave(paste0("images/pair_plot_", metric, ".eps"), pair_plot, width=7, height=10)
   ggsave(paste0("images/pair_plot_", metric, ".png"), pair_plot, width=7, height=10)
 }
+
+pair_plot
 ```
 
 ```{r}
@@ -713,24 +755,27 @@ for (metric in metrics){
     filter(Experiment %in% complex) %>%
     gather("Algorithm", "Metric", 2:6) %>%
     mutate(Experiment = str_replace(Experiment, "_", "+")) %>%
-    mutate(Algorithm = str_replace(Algorithm, "_", "-"))
+    mutate(Algorithm = str_replace(Algorithm, "_ELM", ""))
   
   df$Experiment <- as.factor(df$Experiment)
   df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
   
   complex_plot <-  ggplot(df, aes(x=Metric, y=reorder(Experiment, -Metric), color=Algorithm, shape=Algorithm)) + 
-    geom_point(size=2) + 
-    geom_line() + 
-    theme_bw() + 
-    scale_color_manual(values = c("#FF0000", "#008000", "#0000FF", "#FFA500", "#BF00BF")) + 
+    geom_point(size=2.2) + 
+    theme_classic() + 
+    scale_color_manual(values = c("#CC3311", "#009988", "#0077BB", "#EE7733", "#EE3377")) + 
     scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
-    labs(x=metric, y = "Experiment", title="Complex scenarios") + 
+    labs(x=metric, y = "Data stream name") + 
     xlim(0.0, 1.0) + 
-    theme(legend.position = "none", text = element_text(size=20), axis.text.y = element_text(size=16))
+    theme(legend.position = "none", text = element_text(size=20), axis.text.y = element_text(size=16),
+          axis.text = element_text(colour = "black"),
+          panel.border = element_rect(linetype = "solid", fill = NA))
   
   ggsave(paste0("images/complex_plot_", metric, ".eps"), complex_plot, width=10, height=10)
   ggsave(paste0("images/complex_plot_", metric, ".png"), complex_plot, width=10, height=10)
 }
+
+complex_plot
 ```
 
 # Multiple difficulty factors

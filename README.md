@@ -11,6 +11,12 @@ The repository contains generator source code, experimental scripts including da
 - `scripts` contains python source code use to post-process experimental results
 - `research` contains cached experiment results in the form of: 1) csv files containing classifier performance values over time, 2) classifier performance plots, 3) classifier perofmance values averaged over entire streams
 
+To recreate data stream plots with the same options as in the paper, run:
+
+```
+python plot_metrics.py "../research/evaluations" "../research/plots" "Recall" "G-Mean" -s 10 -a 20 -d 70000 100000 -r -o ESOS_ELM OOB UOB OB VFDT
+```
+
 ## Contact
 
 If you have trouble reproducing the experiments or have any comments/suggestions, feel free to write at dariusz.brzezinski (at) cs.put.poznan.pl
