@@ -810,3 +810,112 @@ for (metric in metrics){
 ```{r}
 prettyTable(total_results_df, round_columns = c("OOB", "UOB", "OB", "VFDT", "ESOS.ELM", "CD"), round_digits = 2)
 ```
+
+
+# Real world data
+
+```{r}
+real_composition <- read.csv("data/composition.csv")
+
+head(real_composition)
+```
+
+```{r}
+for (datasetName in unique(real_composition$Dataset)){
+  print(datasetName)
+  df <- real_composition %>%
+    filter(Dataset == datasetName) %>%
+    mutate(Example = Iteration*2, Minority.ratio = Minority.ratio*100)
+  
+  minority_ratio_plot <-  ggplot(df, aes(x=Example, y=Minority.ratio)) + 
+    geom_line() + 
+    theme_classic() + 
+    labs(x="Number of processed instances [x1000]", y = "Minority ratio [%]") + 
+    theme(legend.position = "none", text = element_text(size=20), axis.text = element_text(colour = "black"),
+          panel.border = element_rect(linetype = "solid", fill = NA))
+  
+  ggsave(paste0("images/", datasetName, "_minority_ratio.svg"), minority_ratio_plot, width=10, height=8)
+  ggsave(paste0("images/", datasetName, "_minority_ratio.eps"), minority_ratio_plot, width=10, height=8)
+  ggsave(paste0("images/", datasetName, "_minority_ratio.png"), minority_ratio_plot, width=10, height=8)
+}
+
+minority_ratio_plot
+```
+
+```{r}
+for (datasetName in unique(real_composition$Dataset)){
+  print(datasetName)
+  df <- real_composition %>%
+    filter(Dataset == datasetName) %>%
+    mutate(Example = Iteration*2, Minority.ratio = Minority.ratio*100) %>%
+    gather("ExampleType", "ExampleRatio", Safe:Rare) %>%
+    mutate(ExampleType = factor(ExampleType, levels = c("Outlier", "Rare", "Borderline", "Safe"))) %>%
+    group_by(Example, ExampleType) %>%
+    summarise(n = sum(ExampleRatio)) %>%
+    mutate(ExampleTypePercentage = n / sum(n)) 
+  
+  minority_ratio_plot <-  ggplot(df, aes(x=Example, y=ExampleTypePercentage, fill=ExampleType)) + 
+    geom_area() + 
+    theme_classic() + 
+    scale_fill_manual(values = c("#000000", "#BB5566", "#DDAA33", "#008844")) + 
+    labs(x="Number of processed instances [x1000]", y = "Example type percentage [%]", fill="Minority example type") + 
+        theme(legend.position = "top", text = element_text(size=20), axis.text = element_text(colour = "black"),
+          panel.border = element_rect(linetype = "solid", fill = NA))
+  
+  ggsave(paste0("images/", datasetName, "_type_ratio.svg"), minority_ratio_plot, width=10, height=8)
+  ggsave(paste0("images/", datasetName, "_type_ratio.png"), minority_ratio_plot, width=10, height=8)
+  ggsave(paste0("images/", datasetName, "_type_ratio.eps"), minority_ratio_plot, width=10, height=8)
+}
+
+minority_ratio_plot
+```
+
+```{r}
+library(apcluster)
+library(farff)
+
+cluster_minority <- function(block, minClusterSize=5, q=0.5) {
+  clustering <- apcluster(negDistMat(r=2), block, q=q)
+
+  filtered_exemplars <- vector()
+  filtered_clusters <- vector()
+  
+  for(clusterIdx in seq_along(clustering@clusters)){
+    if(length(clustering@clusters[[clusterIdx]]) >= minClusterSize) {
+      filtered_exemplars <- c(filtered_exemplars, clustering@exemplars[clusterIdx])
+      filtered_clusters <- c(filtered_clusters, clustering@clusters[clusterIdx])
+    }
+  }
+  
+  list(clusters=filtered_clusters, exemplars=filtered_exemplars)
+}
+
+```
+
+```{r}
+step = 2000
+minClusterSize = 5
+result_df = data.frame()
+
+for(datasetName in c("amazon", "twitter", "tripadvisor", "pakdd")) {
+  for(q in c(0.5)) {
+    df <- readARFF(paste0("../../real-streams/streams/", datasetName, ".arff"))
+    # standardize the data 
+    df <- cbind(df %>% select(-class) %>% scale, df %>% select(class))
+    dfSize = nrow(df)
+  
+    i = 1
+    while(i < dfSize){
+      block <- df[i:min(dfSize, i+step),] %>% filter(class=="1.0") %>% select(-class)
+      clustering <- cluster_minority(block, minClusterSize, q)
+      result_df <- rbind(result_df, data.frame(Dataset=datasetName, 
+                                               Step=min(dfSize, i+step-1), 
+                                               Clusters=length(clustering$exemplars)))
+      
+      i = i + step
+    }
+  }
+}
+
+write.csv(result_df, "clustering.csv")
+```

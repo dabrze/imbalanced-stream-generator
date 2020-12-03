@@ -16,6 +16,7 @@ To recreate data stream plots with the same options as in the paper, run:
 
 ```
 python plot_metrics.py "../synthetic-streams/evaluations" "../synthetic-streams/plots" "Recall" "G-Mean" -s 10 -a 20 -d 70000 100000 -r -o ESOS_ELM OOB UOB OB VFDT
+python plot_metrics.py "../real-streams/evaluations" "../real-streams/plots" "Recall" "G-Mean" -r -o ESOS_ELM OOB UOB OB VFDT
 ```
 
 ## Contact
