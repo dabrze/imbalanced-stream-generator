@@ -143,7 +143,6 @@ for (metric in metrics){
   ggsave(paste0("images/imbalance_plot_", metric, ".svg"), imbalance_plot, width=7, height=7)
   ggsave(paste0("images/imbalance_plot_", metric, ".png"), imbalance_plot, width=7, height=7)
 }
-imbalance_plot
 ```
 
 # Imbalance ratio changes
@@ -206,8 +205,6 @@ for (metric in metrics){
   ggsave(paste0("images/dynamic_increasing_plot_", metric, ".svg"), dynamic_increasing_plot, width=7, height=7)
   ggsave(paste0("images/dynamic_increasing_plot_", metric, ".png"), dynamic_increasing_plot, width=7, height=7)
 }
-
-dynamic_increasing_plot
 ```
 
 ```{r}
@@ -254,8 +251,6 @@ for (metric in metrics){
   ggsave(paste0("images/dynamic_decreasing_plot_", metric, ".svg"), dynamic_decreasing_plot, width=7, height=7)
   ggsave(paste0("images/dynamic_decreasing_plot_", metric, ".png"), dynamic_decreasing_plot, width=7, height=7)
 }
-
-dynamic_decreasing_plot
 ```
 
 # Single factor borderline
@@ -266,7 +261,8 @@ group_name <- "single_borderline"
 for (metric in metrics){
   data_name <- paste0(metric, "-", suffix,".csv")
   df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
-    filter(grepl('Borderline', Experiment), !grepl('Join', Experiment), !grepl('Move', Experiment), !grepl('Split', Experiment), !grepl('Rare', Experiment))
+    filter(grepl('Borderline', Experiment), !grepl('Join', Experiment), !grepl('\\+', Experiment), 
+           !grepl('_', Experiment), !grepl('Move', Experiment), !grepl('Split', Experiment), !grepl('Rare', Experiment))
   rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
   total_results_df <- rbind(total_results_df, rank_df)
 }
@@ -301,8 +297,6 @@ for (metric in metrics){
   ggsave(paste0("images/borderline_plot_", metric, ".svg"), borderline_plot, width=5, height=5)
   ggsave(paste0("images/borderline_plot_", metric, ".png"), borderline_plot, width=5, height=5)
 }
-
-borderline_plot
 ```
 
 ```{r}
@@ -335,8 +329,6 @@ for (metric in metrics){
   ggsave(paste0("images/borderline_plot_", metric, "-post-drift.svg"), borderline_plot, width=5, height=5)
   ggsave(paste0("images/borderline_plot_", metric, "-post-drift.png"), borderline_plot, width=5, height=5)
 }
-
-borderline_plot
 ```
 
 # Single factor rare
@@ -347,7 +339,8 @@ group_name <- "single_rare"
 for (metric in metrics){
   data_name <- paste0(metric, "-", suffix,".csv")
   df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
-    filter(!grepl('Borderline', Experiment), !grepl('Join', Experiment), !grepl('Move', Experiment), !grepl('Split', Experiment), grepl('Rare', Experiment))
+    filter(!grepl('Borderline', Experiment), !grepl('Join', Experiment), !grepl('Move', Experiment), 
+           !grepl('\\+', Experiment), !grepl('_', Experiment), !grepl('Split', Experiment), grepl('Rare', Experiment))
   rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
   total_results_df <- rbind(total_results_df, rank_df)
 }
@@ -383,8 +376,6 @@ for (metric in metrics){
   ggsave(paste0("images/rare_plot_", metric, ".svg"), rare_plot, width=5, height=5)
   ggsave(paste0("images/rare_plot_", metric, ".png"), rare_plot, width=5, height=5)
 }
-
-rare_plot
 ```
 
 ```{r}
@@ -418,8 +409,6 @@ for (metric in metrics){
   ggsave(paste0("images/rare_plot_", metric, "-post-drift.svg"), rare_plot, width=5, height=5)
   ggsave(paste0("images/rare_plot_", metric, "-post-drift.png"), rare_plot, width=5, height=5)
 }
-
-rare_plot
 ```
 
 # Single factor join
@@ -430,7 +419,8 @@ group_name <- "single_join"
 for (metric in metrics){
   data_name <- paste0(metric, "-", suffix,".csv")
   df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
-    filter(!grepl('Borderline', Experiment), grepl('Join', Experiment), !grepl('Move', Experiment), !grepl('Split', Experiment), !grepl('Rare', Experiment))
+    filter(!grepl('Borderline', Experiment), grepl('Join', Experiment), !grepl('\\+', Experiment),
+           !grepl('_', Experiment), !grepl('Move', Experiment), !grepl('Split', Experiment), !grepl('Rare', Experiment))
   rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
   total_results_df <- rbind(total_results_df, rank_df)
 }
@@ -466,8 +456,6 @@ for (metric in metrics){
   ggsave(paste0("images/join_plot_", metric, ".svg"), join_plot, width=5, height=5)
   ggsave(paste0("images/join_plot_", metric, ".png"), join_plot, width=5, height=5)
 }
-
-join_plot
 ```
 
 # Single factor move
@@ -478,7 +466,8 @@ group_name <- "single_move"
 for (metric in metrics){
   data_name <- paste0(metric, "-", suffix,".csv")
   df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
-    filter(!grepl('Borderline', Experiment), !grepl('Join', Experiment), grepl('Move', Experiment), !grepl('Split', Experiment), !grepl('Rare', Experiment))
+    filter(!grepl('Borderline', Experiment), !grepl('Join', Experiment), !grepl('\\+', Experiment), !grepl('_', Experiment),
+           grepl('Move', Experiment), !grepl('Split', Experiment), !grepl('Rare', Experiment))
   rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
   total_results_df <- rbind(total_results_df, rank_df)
 }
@@ -515,8 +504,6 @@ for (metric in metrics){
   ggsave(paste0("images/Move_plot_", metric, ".svg"), Move_plot, width=5, height=5)
   ggsave(paste0("images/Move_plot_", metric, ".png"), Move_plot, width=5, height=5)
 }
-
-Move_plot
 ```
 
 # Single factor split
@@ -527,7 +514,8 @@ group_name <- "single_split"
 for (metric in metrics){
   data_name <- paste0(metric, "-", suffix,".csv")
   df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
-    filter(!grepl('Borderline', Experiment), !grepl('Join', Experiment), !grepl('Move', Experiment), grepl('Split', Experiment), !grepl('Rare', Experiment))
+    filter(!grepl('Borderline', Experiment), !grepl('Join', Experiment), !grepl('\\+', Experiment), 
+           !grepl('_', Experiment), !grepl('Move', Experiment), grepl('Split', Experiment), !grepl('Rare', Experiment))
   rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
   total_results_df <- rbind(total_results_df, rank_df)
 }
@@ -563,8 +551,6 @@ for (metric in metrics){
   ggsave(paste0("images/Split_plot_", metric, ".svg"), Split_plot, width=5, height=5)
   ggsave(paste0("images/Split_plot_", metric, ".png"), Split_plot, width=5, height=5)
 }
-
-Split_plot
 ```
 
 ```{r}
@@ -598,8 +584,6 @@ for (metric in metrics){
   ggsave(paste0("images/Subclusters_plot_", metric, ".svg"), Split_plot, width=5, height=5)
   ggsave(paste0("images/Subclusters_plot_", metric, ".png"), Split_plot, width=5, height=5)
 }
-
-Split_plot
 ```
 
 # Single difficulty factors
@@ -610,7 +594,7 @@ group_name <- "single"
 for (metric in metrics){
   data_name <- paste0(metric, "-", suffix,".csv")
   df <- read.csv(paste0("data/", data_name), sep=" ", dec=".") %>% 
-    filter(!grepl('\\+', Experiment))
+    filter(!grepl('\\+', Experiment), !grepl('_', Experiment))
   rank_df <- reportFriedman(df, metric_name=metric, group_name=group_name)
   total_results_df <- rbind(total_results_df, rank_df)
 }
@@ -734,7 +718,7 @@ for (metric in metrics){
     scale_color_manual(values = c("#CC3311", "#009988", "#0077BB", "#EE7733", "#EE3377")) + 
     scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
     labs(x=metric, y = "Pairs of difficulty factors") + 
-    xlim(0.0, 1.0) + 
+    xlim(0.3, 1.0) + 
     theme(legend.position = "none", text = element_text(size=20), axis.text.y = element_text(size=16),
           axis.text = element_text(colour = "black"),
           panel.border = element_rect(linetype = "solid", fill = NA))
@@ -742,8 +726,6 @@ for (metric in metrics){
   ggsave(paste0("images/pair_plot_", metric, ".svg"), pair_plot, width=7, height=10)
   ggsave(paste0("images/pair_plot_", metric, ".png"), pair_plot, width=7, height=10)
 }
-
-pair_plot
 ```
 
 ```{r}
@@ -758,7 +740,7 @@ for (metric in metrics){
     mutate(Algorithm = str_replace(Algorithm, "_ELM", ""))
   
   df$Experiment <- as.factor(df$Experiment)
-  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS-ELM", "OOB", "UOB", "OB", "VFDT"))
+  df$Algorithm <- factor(df$Algorithm, levels=c("ESOS", "OOB", "UOB", "OB", "VFDT"))
   
   complex_plot <-  ggplot(df, aes(x=Metric, y=reorder(Experiment, -Metric), color=Algorithm, shape=Algorithm)) + 
     geom_point(size=2.2) + 
@@ -766,7 +748,7 @@ for (metric in metrics){
     scale_color_manual(values = c("#CC3311", "#009988", "#0077BB", "#EE7733", "#EE3377")) + 
     scale_shape_manual(values = c(16, 15, 17, 11, 4)) + 
     labs(x=metric, y = "Combinations of difficulty factors") + 
-    xlim(0.0, 1.0) + 
+    xlim(0.3, 1.0) + 
     theme(legend.position = "none", text = element_text(size=20), axis.text.y = element_text(size=16),
           axis.text = element_text(colour = "black"),
           panel.border = element_rect(linetype = "solid", fill = NA))
@@ -774,8 +756,6 @@ for (metric in metrics){
   ggsave(paste0("images/complex_plot_", metric, ".svg"), complex_plot, width=10, height=10)
   ggsave(paste0("images/complex_plot_", metric, ".png"), complex_plot, width=10, height=10)
 }
-
-complex_plot
 ```
 
 # Multiple difficulty factors
@@ -828,7 +808,7 @@ for (datasetName in unique(real_composition$Dataset)){
     mutate(Example = Iteration*2, Minority.ratio = Minority.ratio*100)
   
   minority_ratio_plot <-  ggplot(df, aes(x=Example, y=Minority.ratio)) + 
-    geom_line() + 
+    geom_line(color="#cc3311") + 
     theme_classic() + 
     labs(x="Number of processed instances [x1000]", y = "Minority ratio [%]") + 
     theme(legend.position = "none", text = element_text(size=20), axis.text = element_text(colour = "black"),
@@ -838,8 +818,6 @@ for (datasetName in unique(real_composition$Dataset)){
   ggsave(paste0("images/", datasetName, "_minority_ratio.eps"), minority_ratio_plot, width=10, height=8)
   ggsave(paste0("images/", datasetName, "_minority_ratio.png"), minority_ratio_plot, width=10, height=8)
 }
-
-minority_ratio_plot
 ```
 
 ```{r}
@@ -866,8 +844,6 @@ for (datasetName in unique(real_composition$Dataset)){
   ggsave(paste0("images/", datasetName, "_type_ratio.png"), minority_ratio_plot, width=10, height=8)
   ggsave(paste0("images/", datasetName, "_type_ratio.eps"), minority_ratio_plot, width=10, height=8)
 }
-
-minority_ratio_plot
 ```
 
 ```{r}
@@ -879,43 +855,106 @@ cluster_minority <- function(block, minClusterSize=5, q=0.5) {
 
   filtered_exemplars <- vector()
   filtered_clusters <- vector()
+  cluster_sizes <- vector()
   
   for(clusterIdx in seq_along(clustering@clusters)){
     if(length(clustering@clusters[[clusterIdx]]) >= minClusterSize) {
-      filtered_exemplars <- c(filtered_exemplars, clustering@exemplars[clusterIdx])
+      filtered_exemplars <- c(filtered_exemplars, clustering@exemplars[[clusterIdx]])
       filtered_clusters <- c(filtered_clusters, clustering@clusters[clusterIdx])
+      cluster_sizes <- c(cluster_sizes, length(clustering@clusters[[clusterIdx]]))
     }
   }
   
-  list(clusters=filtered_clusters, exemplars=filtered_exemplars)
+  list(clusters=filtered_clusters, exemplars=block[filtered_exemplars, ], cluster_sizes=cluster_sizes)
 }
 
 ```
 
 ```{r}
 step = 2000
-minClusterSize = 5
+minClusterSize = 6
 result_df = data.frame()
 
 for(datasetName in c("amazon", "twitter", "tripadvisor", "pakdd")) {
-  for(q in c(0.5)) {
-    df <- readARFF(paste0("../../real-streams/streams/", datasetName, ".arff"))
-    # standardize the data 
-    df <- cbind(df %>% select(-class) %>% scale, df %>% select(class))
-    dfSize = nrow(df)
-  
-    i = 1
-    while(i < dfSize){
-      block <- df[i:min(dfSize, i+step),] %>% filter(class=="1.0") %>% select(-class)
-      clustering <- cluster_minority(block, minClusterSize, q)
-      result_df <- rbind(result_df, data.frame(Dataset=datasetName, 
-                                               Step=min(dfSize, i+step-1), 
-                                               Clusters=length(clustering$exemplars)))
-      
-      i = i + step
-    }
+  exemplars_df <- data.frame()
+  df <- readARFF(paste0("../../real-streams/streams/", datasetName, ".arff"))
+  # standardize the data 
+  df <- cbind(df %>% select(-class) %>% scale %>% replace_na(0), 
+              df %>% select(class))
+  dfSize = nrow(df)
+
+  i = 1
+  while(i < dfSize){
+    block <- df[i:min(dfSize, i+step),] %>% filter(class=="1.0") %>% select(-class)
+    apclustering <- cluster_minority(block, minClusterSize)
+    result_df <- rbind(result_df, data.frame(Dataset=datasetName, 
+                                             Step=min(dfSize, i+step-1), 
+                                             Clusters=length(apclustering$cluster_sizes)))
+    exemplars_df <- rbind(exemplars_df, cbind(step=min(dfSize, i+step-1), apclustering$exemplars, size=apclustering$cluster_sizes))
+    i = i + step
   }
+  
+  write.csv(exemplars_df, paste0(datasetName, "_exemplars.csv"))
 }
 
 write.csv(result_df, "clustering.csv")
+```
+```{r}
+clusterings <- read.csv("clustering.csv", row.names = 1)
+
+for (datasetName in unique(clusterings$Dataset)){
+  print(datasetName)
+  df <- clusterings %>%
+    filter(Dataset == datasetName) %>%
+    mutate(Example = Step/1000)
+  
+  cluster_count_plot <-  ggplot(df, aes(x=Example, y=Clusters)) + 
+    geom_line(color="#0077bb") + 
+    theme_classic() + 
+    labs(x="Number of processed instances [x1000]", y = "Number of minority sub-clusters") + 
+    theme(legend.position = "none", text = element_text(size=20), axis.text = element_text(colour = "black"),
+          panel.border = element_rect(linetype = "solid", fill = NA))
+  
+  ggsave(paste0("images/", datasetName, "_cluster_count.svg"), cluster_count_plot, width=10, height=8)
+  ggsave(paste0("images/", datasetName, "_cluster_count.eps"), cluster_count_plot, width=10, height=8)
+  ggsave(paste0("images/", datasetName, "_cluster_count.png"), cluster_count_plot, width=10, height=8)
+}
+```
+
+```{r}
+library("viridis") 
+
+for(datasetName in c("pakdd", "amazon", "twitter", "tripadvisor")) {
+  df <- readARFF(paste0("../../real-streams/streams/", datasetName, ".arff"))
+  write.csv(df, paste0(datasetName, ".csv"))
+  df <- read.csv(paste0(datasetName, ".csv"), row.names = 1)
+  pca <- tryCatch({
+      princomp(df %>% select(-class) %>% scale %>% replace_na(0))
+    },
+    error=function(cond) {
+      prcomp(df %>% select(-class) %>% scale %>% replace_na(0))
+    })
+  
+  exemplars_df <- read.csv(paste0(datasetName, "_exemplars.csv"), row.names = 1)
+  coords <- exemplars_df %>% select(-step, -size)
+  exemplars_pca <- predict(pca, coords)
+  exemplars_pca_df <- data.frame(PCA1 = exemplars_pca[,1], 
+                                 PCA2 = exemplars_pca[,2], 
+                                 step = exemplars_df$step,
+                                 size = exemplars_df$size)
+  
+  exemplar_plot <- ggplot(exemplars_pca_df, aes(x=PCA1, y=PCA2, color=step)) + 
+    geom_point(mapping=aes(size=size, alpha=0.85)) + 
+    theme_classic() + 
+    scale_color_viridis(option = "plasma") + 
+    labs(color="Step", size="Size") + 
+    guides(alpha = "none") +
+    theme(text = element_text(size=20), 
+          axis.text = element_text(colour = "black"),
+          panel.border = element_rect(linetype = "solid", fill = NA))
+  
+  ggsave(paste0("images/", datasetName, "_exemplars.svg"), exemplar_plot, width=10, height=8)
+  ggsave(paste0("images/", datasetName, "_exemplars.png"), exemplar_plot, width=10, height=8)
+  ggsave(paste0("images/", datasetName, "_exemplars.pdf"), exemplar_plot, width=10, height=8)
+}
 ```
