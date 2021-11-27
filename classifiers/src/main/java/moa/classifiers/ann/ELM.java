@@ -145,12 +145,20 @@ public class ELM extends AbstractClassifier implements MultiClassClassifier
                 input.set(startIndex + (int)instance.value(attrIndex), 1.0);
             }
         }
-        return Nd4j.create(input);
+        
+        float[][] data = new float[1][input.size()];
+        
+        for(int i = 0; i < input.size(); i++)
+        	data[0][i] = input.get(i).floatValue();
+        
+        return Nd4j.create(data);
     }
 
     public static INDArray getInstanceTarget(Instance instance)
     {
-        return Nd4j.zeros(instance.numClasses()).putScalar((int)instance.classValue(), 1.0);
+        float[][] data = new float[1][instance.numClasses()];
+    	data[0][(int)instance.classValue()] = 1.0f;
+        return Nd4j.create(data);
     }
 
     protected void allocateResources(Instance instance)
