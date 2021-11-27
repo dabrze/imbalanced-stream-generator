@@ -53,9 +53,9 @@ public class WELM extends ELM {
     {
         INDArray H = Transforms.sigmoid(X.mmul(alpha).addiRowVector(bias)), Ht = H.transpose();
         int diagSize = H.rows();
-        double[] weights = new double[diagSize];
-        for(int i = 0, w = topX; i < topX; ++i) weights[i] = 1.0 / w;
-        for(int i = topX, w = diagSize - topX; i < diagSize; ++i) weights[i] = 1.0 / w;
+        float[] weights = new float[diagSize];
+        for(int i = 0, w = topX; i < topX; ++i) weights[i] = 1.0f / w;
+        for(int i = topX, w = diagSize - topX; i < diagSize; ++i) weights[i] = 1.0f / w;
         INDArray W = Nd4j.diag(Nd4j.create(weights));
         P = invert.apply(Ht.mmul(W).mmul(H));
         beta = P.mmul(Ht).mmul(W).mmul(T);
